@@ -1,0 +1,20 @@
+{
+  "name": "es3",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "repository": "https://github.com/Psykka/ES3.git",
+  "scripts": {
+    "db:gen": "prisma generate"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "devDependencies": {
+    "prisma": "^5.2.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.2.0"
+  }
+}
