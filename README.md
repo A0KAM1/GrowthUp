@@ -5,7 +5,7 @@ Este repositório contém o projeto da disciplina de Engenharia de Software 3 do
 ## Tecnologias utilizadas
 
 - [Node.js](https://nodejs.org/) com [Express](https://expressjs.com/) para o backend
-- [PostgreSQL](https://www.postgresql.org/) para o banco de dados
+- [Mysql](https://www.mysql.com/) para o banco de dados
 - [Prisma](https://www.prisma.io/) para o ORM
 - [Yarn](https://yarnpkg.com/) para o gerenciamento de pacotes
 - ~~[não definido]() para o frontend~~
