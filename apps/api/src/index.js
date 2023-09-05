@@ -1,10 +1,15 @@
 import express from 'express'
 import swaggerJsdoc from 'swagger-jsdoc'
 
+import logger from './middlewares/logger.js'
+import cors from './middlewares/cors.js'
 import routes from './routes.js'
 
 const app = express()
 const port = process.env.PORT || 3000
+
+app.use(logger)
+// app.use(cors)
 
 if (process.env.PRODUCTION) {
     const swaggerUi = await import('swagger-ui-express')
@@ -18,11 +23,15 @@ if (process.env.PRODUCTION) {
             },
             servers: [
                 {
-                    url: `http://localhost:${port}`
+                    description: 'Local server',
+                    url: `http://localhost:${port}/api`
                 }
             ]
         },
-        apis: ['./src/constrollers/*.js']
+        apis: [
+            './src/controllers/*.js',
+            './src/routes.js'
+        ]
     })
 
     app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
@@ -30,8 +39,9 @@ if (process.env.PRODUCTION) {
 
 app.use('/api', routes)
 
-app.use('*', (req, res) => {
+app.use('*', (req, res, next) => {
     res.sendStatus(404)
+    next()
 })
 
 app.listen(port, () => {
