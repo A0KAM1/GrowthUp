@@ -9,7 +9,7 @@ const app = express()
 const port = process.env.PORT || 3000
 
 app.use(logger)
-// app.use(cors)
+app.use(cors)
 
 if (process.env.PRODUCTION) {
     const swaggerUi = await import('swagger-ui-express')
