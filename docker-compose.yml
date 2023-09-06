@@ -8,5 +8,3 @@ services:
       MYSQL_DATABASE: es3
     ports:
       - 3306:3306
-    volumes:
-      - ./mysql:/var/lib/mysql
