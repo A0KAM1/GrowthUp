@@ -1,9 +1,9 @@
 import express from 'express'
-import swaggerJsdoc from 'swagger-jsdoc'
 
 import logger from './middlewares/logger.js'
 import cors from './middlewares/cors.js'
 import routes from './routes.js'
+import isTrueSet from './utils/isTrueSet.js'
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -11,11 +11,13 @@ const port = process.env.PORT || 3000
 app.use(logger)
 app.use(cors)
 
-if (process.env.PRODUCTION) {
+if (!isTrueSet(process.env.PRODUCTION)) {
     const swaggerUi = await import('swagger-ui-express')
-    const swaggerSpec = swaggerJsdoc({
+    const swaggerJsdoc = await import('swagger-jsdoc')
+
+    const swaggerSpec = swaggerJsdoc.default({
         definition: {
-            openapi: '3.0.0',
+            openapi: '3.1.0',
             info: {
                 title: 'API ES3',
                 version: '1.0.0',

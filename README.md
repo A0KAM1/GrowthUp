@@ -58,3 +58,8 @@ Após criar o banco de dados e seus modelos, o projeto estará pronto para o des
 ```bash
 yarn workspace api dev
 ```
+
+## Pronto!
+
+- A API estará disponível em `http://localhost:3000`
+- Documentação da API está disponível em `http://localhost:3000/docs`

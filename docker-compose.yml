@@ -3,8 +3,14 @@ version: '3.1'
 services:
   mysql:
     image: mysql:8
+    name: es3-mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: es3
     ports:
-      - 3306:3306
+      - 3307:3306
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+# connect to mysql with cli
+# docker exec -it es3-mysql mysql -uroot -proot
