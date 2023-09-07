@@ -4,10 +4,11 @@ const magenta = "\x1b[35m"
 const reset = "\x1b[0m"
 
 const logger = (req, res, next) => {
+    const { method, url } = req
+    const date = new Date()
+
     res.on('finish', () => {
-        const { method, url } = req
         const status = res.statusCode
-        const date = new Date()
         const userAgent = req.get('user-agent')
         const ip = req.ip
     
