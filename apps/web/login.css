@@ -1,0 +1,15 @@
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+h1{
+    font-size: 1.75rem;
+}
+label, a{
+    font-size: 1.125rem;
+}
+.container{
+    width: auto;
+    height: auto;
+}
