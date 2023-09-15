@@ -2,6 +2,9 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
 }
 h1{
     font-size: 1.75rem;
@@ -9,7 +12,20 @@ h1{
 label, a{
     font-size: 1.125rem;
 }
-.container{
-    width: auto;
+.container_forms{
+    position: absolute;
+    bottom: 6%;
+}
+.logo{
+    margin-bottom: 10%;
+}
+img{
+    width: 425px;
     height: auto;
+}
+@media (max-width: 481px){
+    img{
+        width: 250px;
+        height: auto;
+    }
 }

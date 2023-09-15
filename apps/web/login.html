@@ -8,25 +8,28 @@
     <title>Login</title>
 </head>
 <body class="bg-blue">
-    <div class="container">
-        <img src="#" class="logo"/>
+    <div class="container_forms">
+        <div class="container logo">
+            <img src="logo.png"/>            
+        </div>
         <h1>Entrar</h1>
         <form>
-            <div>
+            <div class="form-item">
                 <label for="email">E-mail</label>
                 </br>
-                <input type="email" name="email" />            
+                <input type="email" name="email" />
             </div>
-            <div>
+            <div class="form-item">
                 <label for="senha">Senha</label>
                 </br>
-                <input type="password" name="senha" />            
+                <input type="password" name="senha" />
+                <a href="#" style="color: white;">Esqueci a senha</a>                
             </div>
-            <a href="#" style="color: white;">Esqueci a senha</a>
-            </br>
             <button class="btn-forms" type="submit">Entrar</button>
             </br>
-            <a class="color: --azul-claro" href="#">Cadastrar novo usuário</a>            
+            <div class="container">
+                <a href="#" style="color: #279EFF; " >Cadastrar novo usuário</a>    
+            </div>
         </form>
     </div>
     
