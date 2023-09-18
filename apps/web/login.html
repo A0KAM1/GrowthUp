@@ -7,28 +7,35 @@
     <link rel="stylesheet" href="document.css" />
     <title>Login</title>
 </head>
-<body class="bg-blue">
-    <div class="container_forms">
-        <div class="container logo">
-            <img src="logo.png"/>            
+<body class="bg-blue form-screen">
+
+    <div class="form-container">
+        
+        <div class="container">
+            <img src="logo.png"/>        
         </div>
+
         <h1>Entrar</h1>
+
         <form>
             <div class="form-item">
-                <label for="email">E-mail</label>
+                <label for="email">Email</label>
                 </br>
-                <input type="email" name="email" />
+                <input type="email" name="email" id="email" required/>
             </div>
+
             <div class="form-item">
                 <label for="senha">Senha</label>
                 </br>
-                <input type="password" name="senha" />
-                <a href="#" style="color: white;">Esqueci a senha</a>                
+                <input type="password" name="senha" id="senha" required/>
+                <a href="recover.html" style="color: white;">Esqueci a senha</a>                
             </div>
-            <button class="btn-forms" type="submit">Entrar</button>
-            </br>
+
             <div class="container">
-                <a href="#" style="color: #279EFF; " >Cadastrar novo usuário</a>    
+                <button class="form-btn" type="submit">Entrar</button>
+            </div>
+            <div class="container">
+                <a href="signUp.html" style="color: #279EFF; ">Cadastrar novo usuário</a>                    
             </div>
         </form>
     </div>

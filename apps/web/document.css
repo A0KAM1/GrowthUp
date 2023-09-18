@@ -6,30 +6,20 @@
     --letra-neutra: #D8D9DA;
 }
 *{
-    font-family: 'Poppins', sans-serif;    
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    box-sizing: border-box;
 }
 .bg-blue{
     background-color: var(--fundo-escuro);
     color: var(--letra-neutra);
 }
-.btn-forms{
-    background-color: var(--azul-claro);
-    color: white;
-    border: none;
-    border-radius: 2px;
-    padding: 3%;
-    height: 45px;
-    font-size: 1.125rem;
-    width: 100%;
-    box-sizing: border-box;
-}
-.container_forms{
-    width: 621px;
-    box-sizing: border-box;
-}
-.align_bottom{
-    position: absolute;
-    bottom: 0;
+.form-screen{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
 }
 .container{
     display: flex;
@@ -37,27 +27,80 @@
     justify-content: center;
     width: 100%;
 }
-.form-item{
-    margin-bottom: 10%;
+
+body{
+    background-color: #eeeeee;
 }
+
+
+.form-container{
+    width: 320px;
+}
+.form-btn{
+    background-color: var(--azul-claro);
+    color: white;
+    border: none;
+    border-radius: 2px;
+    height: 45px;
+    font-size: 1.125rem;
+    width: 100%;
+    font-weight: 700;
+}
+.form-btn:hover{
+    cursor: pointer;
+}
+.form-item{
+    margin-bottom: 5%;
+}
+
 
 input{
     border: none;
     border-radius: 6px;
-    padding: 3%;
     height: 45px;
     font-size: 1.125rem;
     width: 100%;
-    box-sizing: border-box;
 }
 input:focus{
     outline: 0;
 }
 
-@media (max-width: 768px){
-    .container_forms{
-        width: 320px;
-        box-sizing: border-box;
-    }
+footer{
+    position: absolute;
+    bottom: 0;
+    height: 80px;
 }
 
+
+.back-btn{
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+.back-btn p{
+    color: white;
+    display: none;
+}
+
+@media (min-width: 768px){
+    .form-container{
+        width: 621px;
+    }
+    .form-btn{
+        height: 40px;
+        font-size: 1.5rem;
+        width: 70%;
+    }
+    input{
+        height: 40px;
+    }
+    footer{
+        display: hidden;
+    }
+    .back-btn p{
+        display: inline-block;
+    }
+}
