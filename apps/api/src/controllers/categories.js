@@ -407,7 +407,6 @@ route.put("/:id", authenticate, async (req, res) => {
  *                              $ref: '#/components/schemas/Error'
  */
 route.delete("/:id", authenticate, async (req, res) => {
-    // TODO: implement delete category
     const { id } = req.params
 
     if (!id) {
