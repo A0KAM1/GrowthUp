@@ -75,8 +75,11 @@ route.post('/login', (req, res) => {
             },
             categories: {
                 select: {
+                    id: true,
                     title: true,
                     color: true,
+                    createdAt: true,
+                    updatedAt: true
                 }
             }
         }
@@ -187,8 +190,11 @@ route.post('/register', async (req, res) => {
                 },
                 categories: {
                     select: {
+                        id: true,
                         title: true,
                         color: true,
+                        createdAt: true,
+                        updatedAt: true
                     }
                 }
             }
