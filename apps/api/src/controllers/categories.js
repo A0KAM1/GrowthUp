@@ -138,6 +138,12 @@ route.get("/", authenticate, async (req, res) => {
 route.get("/:id", authenticate, async (req, res) => {
     const { id } = req.params
 
+    if (isNaN(id)) {
+        return res.status(400).json({
+            message: "Invalid data"
+        })
+    }
+
     try {
         const category = await prisma.category.findUnique({
             where: {

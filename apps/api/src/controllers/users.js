@@ -165,7 +165,7 @@ route.get('/me', authenticate, async (req, res) => {
         res.send(user)
     } catch (error) {
         console.error(error)
-        res.sendStatus(500)
+        res.status(500).json()
     }
 })
 
@@ -238,15 +238,14 @@ route.put('/:id', authenticate, async (req, res) => {
             },
             data: {
                 name,
-                email,
-                updatedAt: new Date()
+                email
             }
         })
 
         res.send(updatedUser)
     } catch (error) {
         console.error(error)
-        res.sendStatus(500)
+        res.status(500).json()
     }
 })
 

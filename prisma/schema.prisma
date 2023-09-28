@@ -16,45 +16,46 @@ enum transactionType {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  name      String?
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  account   Account?
+  id         Int        @id @default(autoincrement())
+  email      String     @unique
+  name       String?
+  password   String
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  account    Account?
   categories Category[]
 }
 
 model Account {
-  id        Int      @id @default(autoincrement())
-  balance   Decimal
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userId    Int      @unique
-  user      User     @relation(fields: [userId], references: [id])
+  id           Int           @id @default(autoincrement())
+  balance      Decimal
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  userId       Int           @unique
+  user         User          @relation(fields: [userId], references: [id])
   transactions Transaction[]
 }
 
 model Transaction {
-  id        Int      @id @default(autoincrement())
-  title     String
-  amount    Decimal
-  type      transactionType
-  createdAt DateTime @default(now())
-  accountId Int
-  account   Account  @relation(fields: [accountId], references: [id])
+  id         Int             @id @default(autoincrement())
+  title      String
+  amount     Decimal
+  type       transactionType
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+  accountId  Int
+  account    Account         @relation(fields: [accountId], references: [id])
   categoryId Int?
-  category   Category? @relation(fields: [categoryId], references: [id])
+  category   Category?       @relation(fields: [categoryId], references: [id])
 }
 
 model Category {
-  id        Int      @id @default(autoincrement())
-  title     String
-  color     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           Int           @id @default(autoincrement())
+  title        String
+  color        String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
   transactions Transaction[]
-  userId    Int?
-  user      User? @relation(fields: [userId], references: [id])
+  userId       Int?
+  user         User?         @relation(fields: [userId], references: [id])
 }

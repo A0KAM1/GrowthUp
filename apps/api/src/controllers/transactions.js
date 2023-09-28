@@ -1,4 +1,5 @@
 import { Router } from "express"
+import prisma from '../database.js'
 import authenticate from "../middlewares/authenticate.js"
 
 const route = Router()
@@ -30,6 +31,10 @@ const route = Router()
  *                  type: string
  *                  format: date-time
  *                  description: The date of the creation of the transaction
+ *              updatedAt:
+ *                  type: string
+ *                  format: date-time
+ *                  description: The date of the last update of the transaction
  *              category:
  *                  type: integer
  *                  description: The category id of the transaction
@@ -39,6 +44,7 @@ const route = Router()
  *              amount: 5000
  *              type: DEPOSIT
  *              createdAt: 2021-01-01T00:00:00.000Z
+ *              updatedAt: 2021-01-01T00:00:00.000Z
  *              category: 1
  */
 
@@ -66,6 +72,16 @@ const route = Router()
  *               schema:
  *                  type: integer
  *               description: The page number
+ *             - in: query
+ *               name: filter
+ *               schema:
+ *                  type: string
+ *               description: The filter type (DEPOSIT or WITHDRAW)
+ *             - in: query
+ *               name: category
+ *               schema:
+ *                  type: integer
+ *               description: The category id
  *          responses:
  *              200:
  *                  description: The list of transactions
@@ -94,26 +110,60 @@ const route = Router()
  *                          schema:
  *                              $ref: '#/components/schemas/Error'
  */
-route.get('/', authenticate, (req, res) => {
-    // TODO: Implement pagination
-    res.json([
-        {
-            id: 1,
-            title: 'Salary',
-            amount: 5000,
-            type: 'DEPOSIT',
-            createdAt: '2021-01-01T00:00:00.000Z',
-            category: 1
-        },
-        {
-            id: 2,
-            title: 'Rent',
-            amount: 1000,
-            type: 'WITHDRAW',
-            createdAt: '2021-01-01T00:00:00.000Z',
-            category: 2
-        }
-    ])
+route.get('/', authenticate, async (req, res) => {
+    const { page, filter, category } = req.query
+
+    if (page && isNaN(page)) {
+        return res.status(400).json({ message: 'Invalid page number' })
+    } else if (filter && !['DEPOSIT', 'WITHDRAW'].includes(filter.toUpperCase())) {
+        return res.status(400).json({ message: 'Invalid filter only DEPOSIT or WITHDRAW' })
+    } else if (category && isNaN(category) && category < 1) {
+        return res.status(400).json({ message: 'Invalid category id' })
+    }
+
+    try {
+        const transactions = await prisma.transaction.findMany({
+            where: {
+                account: {
+                    userId: req.userId
+                },
+                category: {
+                    id: category ? parseInt(category) : undefined
+                },
+                type: {
+                    equals: filter ? filter.toUpperCase() : undefined
+                }
+            },
+            select: {
+                id: true,
+                title: true,
+                amount: true,
+                type: true,
+                createdAt: true,
+                updatedAt: true,
+                category: {
+                    select: {
+                        id: true
+                    }
+                }
+            },
+            take: 100,
+            skip: page ? (parseInt(page) - 1) * 100 : 0
+        })
+
+        const data = transactions.map(transaction => ({
+            ...transaction,
+            amount: parseFloat(transaction.amount),
+            category: transaction.category?.id || null
+        }))
+
+        console.log(data)
+
+        res.json(data)
+    } catch (error) {
+        console.error(error)
+        res.status(500).json()
+    }
 })
 
 /**
@@ -165,18 +215,57 @@ route.get('/', authenticate, (req, res) => {
  *                      schema:
  *                          $ref: '#/components/schemas/Error'
  */
-route.get('/:id', authenticate, (req, res) => {
-    // TODO: Implement get transaction by id
+route.get('/:id', authenticate, async (req, res) => {
     const { id } = req.params
 
-    res.json({
-        id,
-        title: 'Salary',
-        amount: 5000,
-        type: 'DEPOSIT',
-        createdAt: '2021-01-01T00:00:00.000Z',
-        category: 1
-    })
+    if (isNaN(id)) {
+        return res.status(400).json({ message: 'Invalid transaction id' })
+    }
+
+    try {
+        const transaction = await prisma.transaction.findUnique({
+            where: {
+                id: parseInt(id)
+            },
+            select: {
+                id: true,
+                title: true,
+                amount: true,
+                type: true,
+                createdAt: true,
+                updatedAt: true,
+                account: {
+                    select: {
+                        userId: true
+                    }
+                },
+                category: {
+                    select: {
+                        id: true
+                    }
+                }
+            }
+        })
+
+        if (!transaction) {
+            return res.status(404).json({ message: 'Transaction not found' })
+        }
+
+        if (transaction.account.userId !== req.userId) {
+            return res.status(401).json({ message: 'Unauthorized' })
+        }
+
+        delete transaction.account
+
+        res.json({
+            ...transaction,
+            amount: parseFloat(transaction.amount),
+            category: transaction.category.id
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(500).json()
+    }
 })
 
 /**
@@ -202,6 +291,7 @@ route.get('/:id', authenticate, (req, res) => {
  *                              type: number
  *                          type:
  *                              type: string
+ *                              enum: [DEPOSIT, WITHDRAW]
  *                          category:
  *                              type: integer
  *      responses:
@@ -230,18 +320,91 @@ route.get('/:id', authenticate, (req, res) => {
  *                      schema:
  *                          $ref: '#/components/schemas/Error'
  */
-route.post('/', authenticate, (req, res) => {
-    // TODO: Implement create transaction
+route.post('/', authenticate, async (req, res) => {
     const { title, amount, type, category } = req.body
 
-    res.json({
-        id: 1,
-        title,
-        amount,
-        type,
-        createdAt: new Date(),
-        category
-    })
+    if (!amount || !type) {
+        return res.status(400).json({ message: 'Invalid transaction data' })
+    }
+
+    try {
+        if (category !== undefined) {
+            const categoryExists = await prisma.category.findUnique({
+                where: {
+                    id: parseInt(category)
+                }
+            })
+
+            if (req.userId !== categoryExists.userId) {
+                return res.status(401).json({ message: 'Unauthorized' })
+            }
+        }
+
+        const balance = await prisma.account.findUnique({
+            where: {
+                userId: req.userId
+            },
+            select: {
+                balance: true
+            }
+        })
+
+        await prisma.account.update({
+            where: {
+                userId: req.userId
+            },
+            data: {
+                balance: type === 'DEPOSIT'
+                    ? parseFloat(balance.balance) + parseFloat(amount)
+                    : parseFloat(balance.balance) - parseFloat(amount)
+            }
+        })
+
+        const query = {
+            data: {
+                title: title || 'Sem título',
+                amount,
+                type,
+                account: {
+                    connect: {
+                        userId: req.userId
+                    }
+                }
+            },
+            select: {
+                id: true,
+                title: true,
+                amount: true,
+                type: true,
+                createdAt: true,
+                updatedAt: true,
+                category: {
+                    select: {
+                        id: true
+                    }
+                }
+            }
+        }
+
+        if (category !== undefined) {
+            query.data.category = {
+                connect: {
+                    id: parseInt(category)
+                }
+            }
+        }
+
+        const transaction = await prisma.transaction.create(query)
+
+        res.status(201).json({
+            ...transaction,
+            amount: parseFloat(transaction.amount),
+            category: transaction.category.id
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(500).json()
+    }
 })
 
 /**
@@ -309,19 +472,100 @@ route.post('/', authenticate, (req, res) => {
  *                          $ref: '#/components/schemas/Error'
  */
 
-route.put('/:id', authenticate, (req, res) => {
-    // TODO: Implement update transaction
+route.put('/:id', authenticate, async (req, res) => {
     const { id } = req.params
     const { title, amount, type, category } = req.body
 
-    res.json({
-        id,
-        title,
-        amount,
-        type,
-        createdAt: new Date(),
-        category
-    })
+    try {
+        const transaction = await prisma.transaction.findUnique({
+            where: {
+                id: parseInt(id)
+            },
+            select: {
+                id: true,
+                title: true,
+                amount: true,
+                type: true,
+                createdAt: true,
+                updatedAt: true,
+                account: {
+                    select: {
+                        userId: true
+                    }
+                },
+                category: {
+                    select: {
+                        id: true
+                    }
+                }
+            }
+        })
+
+        if (!transaction) {
+            return res.status(404).json({ message: 'Transaction not found' })
+        }
+
+        if (transaction.account.userId !== req.userId) {
+            return res.status(401).json({ message: 'Unauthorized' })
+        }
+
+        const query = {
+            where: {
+                id: parseInt(id)
+            },
+            data: {
+                title,
+                amount,
+                type
+            },
+            select: {
+                id: true,
+                title: true,
+                amount: true,
+                type: true,
+                createdAt: true,
+                updatedAt: true,
+                category: {
+                    select: {
+                        id: true
+                    }
+                }
+            }
+        }
+
+        if (category === null) {
+            query.data.category = {
+                disconnect: true
+            }
+        } else if (category !== undefined) {
+            const categoryExists = await prisma.category.findUnique({
+                where: {
+                    id: parseInt(category)
+                }
+            })
+
+            if (req.userId !== categoryExists.userId) {
+                return res.status(401).json({ message: 'Unauthorized' })
+            }
+
+            query.data.category = {
+                connect: {
+                    id: parseInt(category)
+                }
+            }
+        }
+
+        const updatedTransaction = await prisma.transaction.update(query)
+
+        res.json({
+            ...updatedTransaction,
+            amount: parseFloat(updatedTransaction.amount),
+            category: updatedTransaction.category.id
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(500).json()
+    }
 })
 
 /**
@@ -367,11 +611,46 @@ route.put('/:id', authenticate, (req, res) => {
  *                      schema:
  *                          $ref: '#/components/schemas/Error'
  */
-route.delete('/:id', authenticate, (req, res) => {
-    // TODO: Implement delete transaction
+route.delete('/:id', authenticate, async (req, res) => {
     const { id } = req.params
 
-    res.status(204).json()
+    if (isNaN(id)) {
+        return res.status(400).json({ message: 'Invalid transaction id' })
+    }
+
+    try {
+        const transaction = await prisma.transaction.findUnique({
+            where: {
+                id: parseInt(id)
+            },
+            select: {
+                account: {
+                    select: {
+                        userId: true
+                    }
+                }
+            }
+        })
+
+        if (!transaction) {
+            return res.status(404).json({ message: 'Transaction not found' })
+        }
+
+        if (transaction.account.userId !== req.userId) {
+            return res.status(401).json({ message: 'Unauthorized' })
+        }
+
+        prisma.transaction.delete({
+            where: {
+                id: parseInt(id)
+            }
+        })
+
+        res.status(204).json()
+    } catch (error) {
+        console.error(error)
+        res.status(500).json()
+    }
 })
 
 export default route
