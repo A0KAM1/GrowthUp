@@ -3,6 +3,7 @@ const green = "\x1b[32m"
 const magenta = "\x1b[35m"
 const reset = "\x1b[0m"
 
+// TODO: improve logger on routes
 const logger = (req, res, next) => {
     const { method, url } = req
     const date = new Date()

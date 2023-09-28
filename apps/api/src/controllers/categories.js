@@ -344,7 +344,8 @@ route.put("/:id", authenticate, async (req, res) => {
             },
             data: {
                 title,
-                color
+                color,
+                updatedAt: new Date()
             },
             select: {
                 id: true,
