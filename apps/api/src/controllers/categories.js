@@ -1,4 +1,5 @@
 import { Router } from "express"
+import authenticate from "../middlewares/authenticate.js"
 
 const route = Router()
 
@@ -63,7 +64,7 @@ const route = Router()
  *              500:
  *                  description: Internal server error 
  */
-route.get("/", (req, res) => {
+route.get("/", authenticate, (req, res) => {
     // TODO: implement get categories list
 
     res.json([
@@ -110,7 +111,7 @@ route.get("/", (req, res) => {
  *              500:
  *                  description: Internal server error
  */
-route.get("/:id", (req, res) => {
+route.get("/:id", authenticate, (req, res) => {
     // TODO: implement get category by id
     const { id } = req.params
 
@@ -161,7 +162,7 @@ route.get("/:id", (req, res) => {
  *              500:
  *                  description: Internal server error
  */
-route.post("/", (req, res) => {
+route.post("/", authenticate, (req, res) => {
     // TODO: implement create category
     const { title, color } = req.body
 
@@ -221,7 +222,7 @@ route.post("/", (req, res) => {
  *              500:
  *                  description: Internal server error
  */
-route.put("/:id", (req, res) => {
+route.put("/:id", authenticate, (req, res) => {
     // TODO: implement update category
     const { id } = req.params
     const { title, color } = req.body
@@ -264,7 +265,7 @@ route.put("/:id", (req, res) => {
  *              500:
  *                  description: Internal server error
  */
-route.delete("/:id", (req, res) => {
+route.delete("/:id", authenticate, (req, res) => {
     // TODO: implement delete category
     const { id } = req.params
 

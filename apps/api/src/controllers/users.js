@@ -1,4 +1,5 @@
 import { Router } from "express"
+import authenticate from "../middlewares/authenticate.js"
 
 const route = Router()
 
@@ -105,7 +106,7 @@ const route = Router()
  *          404:
  *              description: User not found
  */
-route.put('/:id', (req, res) => {
+route.put('/:id', authenticate, (req, res) => {
     const { id } = req.params
     const { name, email } = req.body
 
