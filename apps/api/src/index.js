@@ -21,7 +21,7 @@ if (!isTrueSet(process.env.PRODUCTION)) {
             info: {
                 title: 'API ES3',
                 version: '1.0.0',
-                description: 'API'
+                description: 'API ES3 is a REST API for the ES3 app. It is built with Node.js, Express.js and Prisma ORM. This API is used to manage users, categories and transactions of personal finances management app.'
             },
             servers: [
                 {
