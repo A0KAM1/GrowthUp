@@ -39,14 +39,8 @@ const route = Router()
  *          categories:
  *              type: array
  *              items:
- *                  type: object
- *                  properties:
- *                      title:
- *                          type: string
- *                          description: The category title
- *                      color:
- *                          type: string
- *                          description: The category color as a hex string
+ *                  $ref: '#/components/schemas/Category'
+ *                      
  *      example:
  *          id: 1
  *          name: Lucas Andrigo Seixas
@@ -57,10 +51,16 @@ const route = Router()
  *          accont:
  *              balance: 1000
  *          categories:
- *              - title: Salary
+ *              - id: 1
+ *                title: Food
  *                color: #000000
- *              - title: Food
+ *                createdAt: 2021-01-01T00:00:00.000Z
+ *                updatedAt: 2021-01-01T00:00:00.000Z
+ *              - id: 2
+ *                title: Salary
  *                color: #000000
+ *                createdAt: 2021-01-01T00:00:00.000Z
+ *                updatedAt: 2021-01-01T00:00:00.000Z
  */
 
 /**
