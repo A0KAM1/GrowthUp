@@ -23,7 +23,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   account   Account?
-  categorys Category[]
+  categories Category[]
 }
 
 model Account {
