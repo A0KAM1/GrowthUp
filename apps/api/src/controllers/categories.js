@@ -59,10 +59,22 @@ const route = Router()
  *                                  $ref: '#/components/schemas/Category'
  *              400:
  *                  description: Bad request
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/Error'
  *              401:
  *                  description: Unauthorized
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/Error'
  *              500:
- *                  description: Internal server error 
+ *                  description: Internal server error
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/Error'
  */
 route.get("/", authenticate, (req, res) => {
     // TODO: implement get categories list
@@ -104,12 +116,28 @@ route.get("/", authenticate, (req, res) => {
  *                              $ref: '#/components/schemas/Category'
  *              400:
  *                  description: Bad request
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/Error'
  *              401:
  *                  description: Unauthorized
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/Error'
  *              404:
  *                  description: Category not found
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/Error'
  *              500:
  *                  description: Internal server error
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/Error'
  */
 route.get("/:id", authenticate, (req, res) => {
     // TODO: implement get category by id
@@ -157,10 +185,22 @@ route.get("/:id", authenticate, (req, res) => {
  *                              $ref: '#/components/schemas/Category'
  *              400:
  *                  description: Bad request
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/Error'
  *              401:
  *                  description: Unauthorized
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/Error'
  *              500:
  *                  description: Internal server error
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/Error'
  */
 route.post("/", authenticate, (req, res) => {
     // TODO: implement create category
@@ -215,12 +255,28 @@ route.post("/", authenticate, (req, res) => {
  *                              $ref: '#/components/schemas/Category'
  *              400:
  *                  description: Bad request
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/Error'
  *              401:
  *                  description: Unauthorized
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/Error'
  *              404:
  *                  description: Category not found
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/Error'
  *              500:
  *                  description: Internal server error
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/Error'
  */
 route.put("/:id", authenticate, (req, res) => {
     // TODO: implement update category
@@ -256,14 +312,34 @@ route.put("/:id", authenticate, (req, res) => {
  *          responses:
  *              204:
  *                  description: The category was deleted
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/Category'
  *              400:
  *                  description: Bad request
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/Error'
  *              401:
  *                  description: Unauthorized
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/Error'
  *              404:
  *                  description: Category not found
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/Error'
  *              500:
  *                  description: Internal server error
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/Error'
  */
 route.delete("/:id", authenticate, (req, res) => {
     // TODO: implement delete category

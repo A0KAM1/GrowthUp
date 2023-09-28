@@ -101,10 +101,22 @@ const route = Router()
  *                          $ref: '#/components/schemas/User'
  *          400:
  *              description: Invalid user data
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Error'
  *          401:
  *              description: Unauthorized
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Error'
  *          404:
  *              description: User not found
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Error'
  */
 route.put('/:id', authenticate, (req, res) => {
     const { id } = req.params

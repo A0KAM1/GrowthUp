@@ -77,10 +77,22 @@ const route = Router()
  *                                  $ref: '#/components/schemas/Transaction'
  *              400:
  *                  description: Bad request
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/Error'
  *              401:
  *                  description: Unauthorized
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/Error'
  *              500:
  *                  description: Internal server error
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/Error'
  */
 route.get('/', authenticate, (req, res) => {
     // TODO: Implement pagination
@@ -130,12 +142,28 @@ route.get('/', authenticate, (req, res) => {
  *                          $ref: '#/components/schemas/Transaction'
  *          400:
  *              description: Bad request
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Error'
  *          401:
  *              description: Unauthorized
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Error'
  *          404:
  *              description: Transaction not found
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Error'
  *          500:
  *              description: Internal server error
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Error'
  */
 route.get('/:id', authenticate, (req, res) => {
     // TODO: Implement get transaction by id
@@ -185,10 +213,22 @@ route.get('/:id', authenticate, (req, res) => {
  *                          $ref: '#/components/schemas/Transaction'
  *          400:
  *              description: Invalid transaction data
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Error'
  *          401:
  *              description: Unauthorized
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Error'
  *          500:
  *              description: Internal server error
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Error'
  */
 route.post('/', authenticate, (req, res) => {
     // TODO: Implement create transaction
@@ -245,12 +285,28 @@ route.post('/', authenticate, (req, res) => {
  *                          $ref: '#/components/schemas/Transaction'
  *          400:
  *              description: Invalid transaction data
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Error'
  *          401:
  *              description: Unauthorized
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Error'
  *          404:
  *              description: Transaction not found
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Error'
  *          500:
  *              description: Internal server error
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Error'
  */
 
 route.put('/:id', authenticate, (req, res) => {
@@ -288,12 +344,28 @@ route.put('/:id', authenticate, (req, res) => {
  *      responses:
  *          204:
  *              description: The transaction was deleted
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Transaction'
  *          401:
  *              description: Unauthorized
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Error'
  *          404:
  *              description: Transaction not found
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Error'
  *          500:
  *              description: Internal server error
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Error'
  */
 route.delete('/:id', authenticate, (req, res) => {
     // TODO: Implement delete transaction

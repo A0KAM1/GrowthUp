@@ -43,10 +43,22 @@ const route = Router()
  *                          $ref: '#/components/schemas/User'
  *          401:
  *              description: Invalid credentials
+*               content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Error'
  *          404:
  *              description: User not found
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Error'
  *          500:
  *              description: Internal server error
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Error'
  */
 route.post('/login', (req, res) => {
     const { email, password } = req.body
@@ -141,8 +153,16 @@ route.post('/login', (req, res) => {
  *                          $ref: '#/components/schemas/User'
  *          400:
  *              description: Invalid new user data
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Error'
  *          500:
  *              description: Internal server error
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Error'
  */
 route.post('/register', async (req, res) => {
     const { name, email, password } = req.body

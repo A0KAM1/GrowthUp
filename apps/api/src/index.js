@@ -28,7 +28,19 @@ if (!isTrueSet(process.env.PRODUCTION)) {
                     description: 'Local server',
                     url: `http://localhost:${port}/api`
                 }
-            ]
+            ],
+            components: {
+                schemas: {
+                    Error: {
+                        type: 'object',
+                        properties: {
+                            message: {
+                                type: 'string'
+                            }
+                        }
+                    }
+                }
+            }
         },
         apis: [
             './src/controllers/*.js',
