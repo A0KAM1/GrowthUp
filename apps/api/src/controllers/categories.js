@@ -1,4 +1,5 @@
 import { Router } from "express"
+import prisma from '../database.js'
 import authenticate from "../middlewares/authenticate.js"
 
 const route = Router()
@@ -57,12 +58,6 @@ const route = Router()
  *                              type: array
  *                              items:
  *                                  $ref: '#/components/schemas/Category'
- *              400:
- *                  description: Bad request
- *                  content:
- *                      application/json:
- *                          schema:
- *                              $ref: '#/components/schemas/Error'
  *              401:
  *                  description: Unauthorized
  *                  content:
@@ -76,18 +71,25 @@ const route = Router()
  *                          schema:
  *                              $ref: '#/components/schemas/Error'
  */
-route.get("/", authenticate, (req, res) => {
-    // TODO: implement get categories list
+route.get("/", authenticate, async (req, res) => {
+    try {
+        const categories = await prisma.category.findMany({
+            where: {
+                userId: req.userId
+            },
+            select: {
+                id: true,
+                title: true,
+                color: true,
+                createdAt: true,
+                updatedAt: true
+            }
+        })
 
-    res.json([
-        {
-            id: 1,
-            title: "Salary",
-            color: "#000000",
-            createdAt: "2021-01-01T00:00:00.000Z",
-            updatedAt: "2021-01-01T00:00:00.000Z"
-        }
-    ])
+        res.status(200).json(categories)
+    } catch (error) {
+        res.status(500).json(error)
+    }
 })
 
 /**
@@ -114,12 +116,6 @@ route.get("/", authenticate, (req, res) => {
  *                      application/json:
  *                          schema:
  *                              $ref: '#/components/schemas/Category'
- *              400:
- *                  description: Bad request
- *                  content:
- *                      application/json:
- *                          schema:
- *                              $ref: '#/components/schemas/Error'
  *              401:
  *                  description: Unauthorized
  *                  content:
@@ -139,17 +135,34 @@ route.get("/", authenticate, (req, res) => {
  *                          schema:
  *                              $ref: '#/components/schemas/Error'
  */
-route.get("/:id", authenticate, (req, res) => {
-    // TODO: implement get category by id
+route.get("/:id", authenticate, async (req, res) => {
     const { id } = req.params
 
-    res.json({
-        id,
-        title: "Salary",
-        color: "#000000",
-        createdAt: "2021-01-01T00:00:00.000Z",
-        updatedAt: "2021-01-01T00:00:00.000Z"
-    })
+    try {
+        const category = await prisma.category.findUnique({
+            where: {
+                id: parseInt(id)
+            }
+        })
+
+        if (!category) {
+            return res.status(404).json({
+                message: "Category not found"
+            })
+        }
+
+        if (category.userId !== req.userId) {
+            return res.status(401).json({
+                message: "Unauthorized"
+            })
+        }
+
+        delete category.userId
+
+        res.status(200).json(category)
+    } catch (error) {
+        res.status(500).json(error)
+    }
 })
 
 /**
@@ -202,17 +215,35 @@ route.get("/:id", authenticate, (req, res) => {
  *                          schema:
  *                              $ref: '#/components/schemas/Error'
  */
-route.post("/", authenticate, (req, res) => {
-    // TODO: implement create category
+route.post("/", authenticate, async (req, res) => {
     const { title, color } = req.body
 
-    res.json({
-        id: 1,
-        title,
-        color,
-        createdAt: "2021-01-01T00:00:00.000Z",
-        updatedAt: "2021-01-01T00:00:00.000Z"
-    })
+    if (!title || !color) {
+        return res.status(400).json({
+            message: "Invalid data"
+        })
+    }
+
+    try {
+        const category = await prisma.category.create({
+            data: {
+                title,
+                color,
+                userId: req.userId
+            },
+            select: {
+                id: true,
+                title: true,
+                color: true,
+                createdAt: true,
+                updatedAt: true
+            }
+        })
+
+        res.status(201).json(category)
+    } catch (error) {
+        res.status(500).json(error)
+    }
 })
 
 /**
@@ -278,18 +309,56 @@ route.post("/", authenticate, (req, res) => {
  *                          schema:
  *                              $ref: '#/components/schemas/Error'
  */
-route.put("/:id", authenticate, (req, res) => {
-    // TODO: implement update category
+route.put("/:id", authenticate, async (req, res) => {
     const { id } = req.params
     const { title, color } = req.body
 
-    res.json({
-        id,
-        title,
-        color,
-        createdAt: "2021-01-01T00:00:00.000Z",
-        updatedAt: "2021-01-01T00:00:00.000Z"
-    })
+    if (!title || !color || !id) {
+        return res.status(400).json({
+            message: "Invalid data"
+        })
+    }
+
+    try {
+        const category = await prisma.category.findUnique({
+            where: {
+                id: parseInt(id)
+            }
+        })
+
+        if (!category) {
+            return res.status(404).json({
+                message: "Category not found"
+            })
+        }
+
+        if (category.userId !== req.userId) {
+            return res.status(401).json({
+                message: "Unauthorized"
+            })
+        }
+
+        const updatedCategory = await prisma.category.update({
+            where: {
+                id: parseInt(id)
+            },
+            data: {
+                title,
+                color
+            },
+            select: {
+                id: true,
+                title: true,
+                color: true,
+                createdAt: true,
+                updatedAt: true
+            }
+        })
+
+        res.status(200).json(updatedCategory)
+    } catch (error) {
+        res.status(500).json(error)
+    }
 })
 
 /**
@@ -312,10 +381,6 @@ route.put("/:id", authenticate, (req, res) => {
  *          responses:
  *              204:
  *                  description: The category was deleted
- *                  content:
- *                      application/json:
- *                          schema:
- *                              $ref: '#/components/schemas/Category'
  *              400:
  *                  description: Bad request
  *                  content:
@@ -341,11 +406,45 @@ route.put("/:id", authenticate, (req, res) => {
  *                          schema:
  *                              $ref: '#/components/schemas/Error'
  */
-route.delete("/:id", authenticate, (req, res) => {
+route.delete("/:id", authenticate, async (req, res) => {
     // TODO: implement delete category
     const { id } = req.params
 
-    res.status(204).json()
+    if (!id) {
+        return res.status(400).json({
+            message: "Invalid data"
+        })
+    }
+
+    try {
+        const category = await prisma.category.findUnique({
+            where: {
+                id: parseInt(id)
+            }
+        })
+
+        if (!category) {
+            return res.status(404).json({
+                message: "Category not found"
+            })
+        }
+
+        if (category.userId !== req.userId) {
+            return res.status(401).json({
+                message: "Unauthorized"
+            })
+        }
+
+        await prisma.category.delete({
+            where: {
+                id: parseInt(id)
+            }
+        })
+
+        res.status(204).json()
+    } catch (error) {
+        res.status(500).json(error)
+    }
 })
 
 export default route

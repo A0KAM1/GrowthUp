@@ -43,7 +43,7 @@ const route = Router()
  *                          $ref: '#/components/schemas/User'
  *          401:
  *              description: Invalid credentials
-*               content:
+ *              content:
  *                  application/json:
  *                      schema:
  *                          $ref: '#/components/schemas/Error'
