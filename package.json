@@ -5,7 +5,8 @@
   "private": true,
   "repository": "https://github.com/Psykka/ES3.git",
   "scripts": {
-    "db:gen": "prisma generate"
+    "db:gen": "prisma generate",
+    "db:dev": "prisma migrate dev"
   },
   "workspaces": [
     "packages/*",

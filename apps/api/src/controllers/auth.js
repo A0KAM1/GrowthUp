@@ -1,4 +1,7 @@
 import { Router } from "express"
+import prisma from '../database.js'
+import { comparePassword, hashPassword } from '../services/password.js'
+import { generateToken } from '../services/jwt.js'
 
 const route = Router()
 
@@ -45,17 +48,61 @@ const route = Router()
  *              description: Internal server error
  */
 route.post('/login', (req, res) => {
-    // TODO: Implement login
-    res.send({
-        id: 1,
-        name: 'John Doe',
-        email: 'john doe@email.com',
-        token: 'token',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        accont: {
-            balance: 1000
+    const { email, password } = req.body
+
+    if (!email || !password) {
+        return res.status(400).send({
+            message: 'Invalid data'
+        })
+    }
+
+    prisma.user.findUnique({
+        where: {
+            email
+        },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            password: true,
+            createdAt: true,
+            updatedAt: true,
+            account: {
+                select: {
+                    balance: true
+                }
+            },
+            categories: {
+                select: {
+                    title: true,
+                    color: true,
+                }
+            }
         }
+    }).then(user => {
+        if (!user) {
+            return res.status(404).send({
+                message: 'User not found'
+            })
+        }
+
+        comparePassword(password, user.password).then(match => {
+            if (!match) {
+                return res.status(401).send({
+                    message: 'Invalid credentials'
+                })
+            }
+
+            return res.status(200).send({
+                ...user,
+                token: generateToken(user.id)
+            })
+        })
+    }).catch(error => {
+        console.error(error)
+        return res.status(500).send({
+            message: 'Internal server error'
+        })
     })
 })
 
@@ -79,6 +126,8 @@ route.post('/login', (req, res) => {
  *                              type: string
  *                          email:
  *                              type: string
+ *                          password:
+ *                              type: string
  *      responses:
  *          201:
  *              description: The user was created
@@ -91,22 +140,69 @@ route.post('/login', (req, res) => {
  *          500:
  *              description: Internal server error
  */
-route.post('/register', (req, res) => {
-    const { name, email } = req.body
+route.post('/register', async (req, res) => {
+    const { name, email, password } = req.body
 
-    // TODO: create user
-    res.send({
-        id: 1,
-        name,
-        email,
-        token: 'token',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        accont: {
-            balance: 1000
+    if (!name || !email || !password) {
+        return res.status(400).send({
+            message: 'Invalid data'
+        })
+    }
+
+    try {
+        const user = await prisma.user.findUnique({
+            where: {
+                email
+            }
+        })
+
+        if (user) {
+            return res.status(400).send({
+                message: 'User already exists'
+            })
         }
-    })
-})
 
+        const newUser = await prisma.user.create({
+            data: {
+                name,
+                email,
+                password: await hashPassword(password),
+                account: {
+                    create: {
+                        balance: 0
+                    }
+                }
+            },
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                createdAt: true,
+                updatedAt: true,
+                account: {
+                    select: {
+                        balance: true
+                    }
+                },
+                categories: {
+                    select: {
+                        title: true,
+                        color: true,
+                    }
+                }
+            }
+        })
+
+        return res.status(201).send({
+            ...newUser,
+            token: generateToken(newUser.id)
+        })
+    } catch (error) {
+        console.error(error)
+        return res.status(500).send({
+            message: 'Internal server error'
+        })
+    }
+})
 
 export default route
