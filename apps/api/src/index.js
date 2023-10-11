@@ -1,7 +1,7 @@
 import express from 'express'
+import cors from 'cors'
 
 import logger from './middlewares/logger.js'
-import cors from './middlewares/cors.js'
 import routes from './routes.js'
 import isTrueSet from './utils/isTrueSet.js'
 
@@ -9,7 +9,7 @@ const app = express()
 const port = process.env.PORT || 3000
 
 app.use(logger)
-app.use(cors)
+app.use(cors())
 
 if (!isTrueSet(process.env.PRODUCTION)) {
     const swaggerUi = await import('swagger-ui-express')
