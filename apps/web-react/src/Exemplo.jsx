@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
-import './App.css'
+import './Exemplo.css'
 
-function App() {
+function Exemplo() {
   const [user, setUser] = useState(0)
 
   return (
@@ -32,15 +32,9 @@ function App() {
         }>
           the user is {user.name}
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
 
-export default App
+export default Exemplo
