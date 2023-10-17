@@ -1,0 +1,23 @@
+.nav{
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    height: 80px;
+    width: 100%;
+}
+.nav .selected{
+    background-color: #35A29F;
+    color: white;
+}
+.nav button{
+    width: 20%;
+    background-color: transparent;
+    border: none;
+    text-align: center;
+    color: black;
+}
+.nav button:hover{
+    cursor: pointer;
+}
