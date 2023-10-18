@@ -31,7 +31,7 @@ function GraphicCard(props){
 function Home(){
     return(
         <>
-            <div>
+            <div className="content">
                 <GraphicCard texto="Gastos"/>
                 <GraphicCard texto="Ganhos"/>
             </div>

@@ -1,0 +1,22 @@
+.bg-blue{
+    position: sticky;
+    top: 0;
+}
+
+.top{
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button{
+    background-color: transparent;
+    border: none;
+    text-align: start;
+    color: white;
+}

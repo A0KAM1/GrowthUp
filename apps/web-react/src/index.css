@@ -11,6 +11,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+body{
+    background-color: #eeeeee;
+}
 h1{
     font-size: 1.75rem;
 }
@@ -21,17 +24,25 @@ label, input{
     font-size: 1.125rem;
 }
 
+
+input{
+    border: none;
+    border-radius: 6px;
+    height: 45px;
+    width: 100%;
+    display: block;
+}
+input:focus{
+    outline: 0;
+}
+
+
 .bg-blue{
     background-color: var(--fundo-escuro);
     color: var(--letra-neutra);
 }
-.form-screen{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    width: 100vw;
-}
+
+
 .container{
     display: flex;
     align-items: center;
@@ -39,11 +50,20 @@ label, input{
     width: 100%;
 }
 
-body{
-    background-color: #eeeeee;
+.content{
+    margin-bottom: 80px;
 }
+/*Default settings for all screens and personalized class to especific components*/
 
 
+
+.form-screen{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+}
 .form-container{
     width: 320px;
 }
@@ -65,16 +85,7 @@ body{
 }
 
 
-input{
-    border: none;
-    border-radius: 6px;
-    height: 45px;
-    width: 100%;
-    display: block;
-}
-input:focus{
-    outline: 0;
-}
+/*Forms screens settings*/
 
 
 .back-btn{
@@ -90,10 +101,7 @@ input:focus{
     display: none;
 }
 
-header{
-    position: sticky;
-    top: 0;
-}
+
 
 @media (min-width: 768px){
     .form-container{

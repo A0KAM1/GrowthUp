@@ -7,6 +7,7 @@ import hs from "./assets/table-selected.svg"
 import cs from "./assets/pie-chart-selected.svg"
 import is from "./assets/home-selected.svg"
 import us from "./assets/user-selected.svg"
+import Header from './Header'
 import Home from "./Home.jsx"
 import Categorias from './Categorias.jsx'
 import Historico from './Historico.jsx'
@@ -39,8 +40,10 @@ function App(){
 
     return(
         <>
+        <div className='App'>
+            <Header />
             <div>{content}</div>
-            <div className='nav'>
+            <footer className='nav'>
                 <button className={btnState} onClick={() => setPage("historico")}>
                     {
                         (page == 'historico')?
@@ -73,7 +76,9 @@ function App(){
                     }
                     <p>Perfil</p>
                 </button>
-            </div>
+            </footer>
+        </div>
+            
         </>
     )
         
