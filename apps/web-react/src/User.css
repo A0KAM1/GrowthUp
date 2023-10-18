@@ -1,10 +1,11 @@
-.div5{
-    width: 200px;
-    height: 200px;
-    background-color: cyan;
+.content h2{
+    color: #071952;
+    font-weight: 700;
 }
-.div6{
-    width: 200px;
-    height: 200px;
-    background-color: royalblue;
+.content label{
+    color: #071952;
+}
+.title{
+    display: flex;
+    justify-content: space-between;
 }

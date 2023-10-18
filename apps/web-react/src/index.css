@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 :root{
     --fundo-escuro: #071952;
@@ -25,12 +25,20 @@ label, input{
 }
 
 
+button{
+    background-color: transparent;
+    border: none;
+    text-align: start;
+}
+
+
 input{
     border: none;
     border-radius: 6px;
     height: 45px;
     width: 100%;
     display: block;
+    padding-left: 10px;
 }
 input:focus{
     outline: 0;
@@ -52,18 +60,14 @@ input:focus{
 
 .content{
     margin-bottom: 80px;
+    width: 85%;
+    max-width: 85%;
 }
+
 /*Default settings for all screens and personalized class to especific components*/
 
 
 
-.form-screen{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    width: 100vw;
-}
 .form-container{
     width: 320px;
 }
@@ -84,8 +88,8 @@ input:focus{
     margin-bottom: 5%;
 }
 
-
 /*Forms screens settings*/
+
 
 
 .back-btn{
