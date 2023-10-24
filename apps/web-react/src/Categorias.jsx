@@ -1,12 +1,22 @@
 import { useState, useEffect } from "react";
 import "./Categorias.css"
+import fetchData from "./FetchData.js";
 
 function Categorias(){
+    const [categories, setCategories] = useState()
+
+    useEffect (() => {
+        const getCategories = async () =>{
+            setCategories(await fetchData("get", "/categories"))
+        }
+        getCategories()
+    },[])
+    
+
     return(
         <>
             <div className="content">
-                <div className="div3">Categorias</div>
-                <div className="div4">Div setecentos e quarenta</div>
+                {categories && categories.map(({ id, title }) => (<li key={id}><h2>{title}</h2></li>))}
             </div>
         </>
     )

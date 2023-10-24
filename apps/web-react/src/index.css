@@ -4,6 +4,8 @@
     --fundo-escuro: #071952;
     --azul-claro: #279EFF;
     --letra-neutra: #D8D9DA;
+    --verde: #35A29F;
+    --vermelho: #BB2525;
 }
 *{
     font-family: 'Poppins', sans-serif;
@@ -24,15 +26,12 @@ label, input{
     font-size: 1.125rem;
 }
 
-
 button{
     background-color: transparent;
     border: none;
     text-align: start;
 }
-
-
-input{
+.form-group input{
     border: none;
     border-radius: 6px;
     height: 45px;
@@ -49,7 +48,6 @@ input:focus{
     background-color: var(--fundo-escuro);
     color: var(--letra-neutra);
 }
-
 
 .container{
     display: flex;
@@ -84,7 +82,7 @@ input:focus{
 .form-btn:hover{
     cursor: pointer;
 }
-.form-item{
+.form-group{
     margin-bottom: 5%;
 }
 
@@ -104,6 +102,8 @@ input:focus{
     color: white;
     display: none;
 }
+
+/*Back button initial screens*/
 
 
 

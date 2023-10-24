@@ -5,7 +5,7 @@ function Chart(){
     
 }
 
-function GraphicCard(props){
+function ChartCard(props){
     return(
         <>
             <div className="ChartCard">
@@ -21,19 +21,39 @@ function GraphicCard(props){
                 </div>
 
                 <div>
-                    <p>categoria</p>
+                    <div className="container">
+                        <p>categoria</p>
+                        <p>R$ 0000,00</p>
+                    </div>
                 </div>
             </div>
         </>
     )
 }
 
+
+function Total(props){
+    return(
+        <>
+            <div className={props.classe}>
+                <h2>{props.tipo}</h2>
+                <h2>R$ 0000,00</h2>
+            </div>
+        </>
+    )
+}
+
+
 function Home(){
     return(
         <>
             <div className="content">
-                <GraphicCard texto="Gastos"/>
-                <GraphicCard texto="Ganhos"/>
+                <div className="container total">
+                    <Total classe="entradas" tipo="Entradas"/>
+                    <Total classe="saidas" tipo="Saídas" />
+                </div>
+                <ChartCard texto="Gastos"/>
+                <ChartCard texto="Ganhos"/>
             </div>
         </>
     )

@@ -12,6 +12,7 @@ import Home from "./Home.jsx"
 import Categorias from './Categorias.jsx'
 import Historico from './Historico.jsx'
 import User from './User.jsx'
+import Login from './Login.jsx'
 import { useState, useEffect } from 'react'
 
 function App(){
@@ -19,7 +20,7 @@ function App(){
     let content;
     let btnState, btnState1, btnState2, btnState3;
     
-    const [page, setPage] = useState("home");
+    const [page, setPage] = useState("login");
 
     if(page == 'historico'){
         content = <Historico />
@@ -32,6 +33,9 @@ function App(){
     else if(page == 'home'){
         content = <Home />
         btnState2= "selected"
+    }
+    else if(page == 'login'){
+        content = <Login />
     }
     else{
         content = <User />

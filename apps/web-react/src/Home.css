@@ -5,3 +5,22 @@
 .ChartCard h2{
     color: #071952;
 }
+
+.total{
+    background-color: white;
+    border-radius: 6px;
+    margin-bottom: 25px;
+}
+
+.entradas, .saidas{
+    text-align: center;
+    width: 50%;
+}
+
+.saidas > :last-child{
+    color: var(--vermelho);
+}
+
+.entradas > :last-child{
+    color: var(--verde);
+}
