@@ -4,17 +4,17 @@ import { useState, useEffect } from "react"
 import fetchData from "./FetchData"
 
 
-function User(){
+function User() {
     const [user, setUser] = useState()
 
-    useEffect (() => {
-        const getUser = async () =>{
+    useEffect(() => {
+        const getUser = async () => {
             setUser(await fetchData("get", "/users/me"))
         }
         getUser()
-    },[])
+    }, [])
 
-    return(
+    return (
         <>
             <div className="content">
                 <div className="title">
@@ -27,13 +27,13 @@ function User(){
                 </div>
                 <div className="form-group">
                     <label>Email</label>
-                    <input type="text" value={user?.email}/>
+                    <input type="text" value={user?.email} />
                 </div>
                 <div className="form-group">
                     <label>Senha</label>
-                    <input type="password" value={user?.senha}/>
+                    <input type="password" value={user?.senha} />
                 </div>
-                
+
             </div>
         </>
     )

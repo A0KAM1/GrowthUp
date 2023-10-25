@@ -1,4 +1,4 @@
-.nav{
+.nav {
     display: flex;
     justify-content: space-between;
     background-color: white;
@@ -7,17 +7,20 @@
     height: 80px;
     width: 100%;
 }
-.nav .selected{
+
+.nav .selected {
     background-color: #35A29F;
     color: white;
 }
-.nav button{
+
+.nav button {
     width: 25%;
     background-color: transparent;
     border: none;
     text-align: center;
     color: black;
 }
-.nav button:hover{
+
+.nav button:hover {
     cursor: pointer;
 }

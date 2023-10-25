@@ -12,7 +12,6 @@ function ChartCard(props){
                 <h2>
                     {props.texto} por Categoria
                 </h2>
-                
 
                 <div className="Chart">
                     {

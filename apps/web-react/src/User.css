@@ -1,10 +1,3 @@
-.content h2{
-    color: #071952;
-    font-weight: 700;
-}
-.content label{
-    color: #071952;
-}
 .title{
     display: flex;
     justify-content: space-between;

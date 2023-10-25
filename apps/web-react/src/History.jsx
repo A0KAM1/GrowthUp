@@ -1,6 +1,6 @@
-import "./Historico.css"
+import "./History.css"
 
-function Historico(){
+function History(){
     return(
         <>
             <div className="content">
@@ -11,4 +11,4 @@ function Historico(){
     )
 }
 
-export default Historico
+export default History
