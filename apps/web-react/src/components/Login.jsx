@@ -1,20 +1,22 @@
 import { useState } from 'react'
 import fetchData from '../FetchData'
 import App from './App'
-import './Landing.css'
+import './Login.css'
 import { NavLink } from 'react-router-dom'
 
-function Landing() {
+function Login() {
 
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-    // const [logged, setLogged] = useState("no")
+    const [logged, setLogged] = useState("no")
 
     const handleSubmit = async (event) => {
 
         const user = await fetchData('post', '/login', { email, password })
         localStorage.setItem("token", user.token)
         event.preventDefault()
+
+
         //setLogged("yes")
     }
 
@@ -52,4 +54,4 @@ function Landing() {
     )
 }
 
-export default Landing
+export default Login

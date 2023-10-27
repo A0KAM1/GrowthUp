@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { NavLink } from "react-router-dom"
 import fetchData from "../FetchData"
 
 function SignUp() {
@@ -17,30 +18,29 @@ function SignUp() {
     return (
         <>
             <div className="bg-blue form-screen">
-                <a className="back-btn" href="#">
-                    <p>Voltar</p>
-                </a>
-                <div className="form-container">
+                <NavLink className="back-btn" to="/">
+                    Voltar
+                </NavLink>
+                <div className="content">
                     <h1>Cadastro de Usuário</h1>
 
                     <form onSubmit={handleSubmit}>
-
-                        <div className="form-item">
+                        <div className="form-group">
                             <label>Nome Completo</label>
-                            <input type="text" onChange={(e) => setName(e.target.value)} required/>
+                            <input type="text" onChange={(e) => setName(e.target.value)} required />
                         </div>
 
-                        <div className="form-item">
+                        <div className="form-group">
                             <label>Email</label>
-                            <input type="email" onChange={(e) => setEmail(e.target.value)} required/>
+                            <input type="email" onChange={(e) => setEmail(e.target.value)} required />
                         </div>
 
-                        <div className="form-item">
+                        <div className="form-group">
                             <label>Senha</label>
-                            <input type="password" id="password" onChange={(e) => setPassword(e.target.value)} required/>
+                            <input type="password" id="password" onChange={(e) => setPassword(e.target.value)} required />
                         </div>
 
-                        <div className="container">
+                        <div>
                             <button type="submit" className="form-btn">Cadastrar</button>
                         </div>
 

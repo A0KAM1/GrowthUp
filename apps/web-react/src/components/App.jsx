@@ -14,7 +14,7 @@ import Home from "./Home.jsx"
 import Categories from './Categories.jsx'
 import History from './History.jsx'
 import User from './User.jsx'
-import Login from './Landing'
+import Login from './Login'
 
 import { useState, useEffect } from 'react'
 import fetchData from '../FetchData'

@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider} from 'react-router-dom';
 
-import Landing from "./components/Landing.jsx";
+import Login from "./components/Login.jsx";
 import SignUp from './components/SignUp.jsx';
 import Menu from './components/Menu.jsx';
 import History from './components/History.jsx';
@@ -11,7 +11,7 @@ import User from './components/User.jsx';
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Landing />,
+        element: <Login />,
         errorElement: <h1>Erro! Rota não encontrada...</h1>
     },
     {
