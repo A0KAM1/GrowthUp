@@ -1,5 +1,5 @@
 import { useState } from "react"
-import fetchData from "./FetchData"
+import fetchData from "../FetchData"
 
 function SignUp() {
     const [name, setName] = useState()
@@ -17,7 +17,7 @@ function SignUp() {
     return (
         <>
             <div className="bg-blue form-screen">
-                <a className="back-btn" href="login.html">
+                <a className="back-btn" href="#">
                     <p>Voltar</p>
                 </a>
                 <div className="form-container">

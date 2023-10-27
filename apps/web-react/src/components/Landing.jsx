@@ -1,24 +1,24 @@
 import { useState } from 'react'
-import fetchData from './FetchData'
+import fetchData from '../FetchData'
 import App from './App'
-import './Login.css'
+import './Landing.css'
+import { NavLink } from 'react-router-dom'
 
-function Login() {
+function Landing() {
 
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-    const [logged, setLogged] = useState("no")
+    // const [logged, setLogged] = useState("no")
 
     const handleSubmit = async (event) => {
 
         const user = await fetchData('post', '/login', { email, password })
         localStorage.setItem("token", user.token)
         event.preventDefault()
-        console.log(user.name)
-        setLogged("yes")
+        //setLogged("yes")
     }
 
-    const GO = 
+    return (
         <>
             <div className={"form-screen container bg-blue "}>
                 <div className="content">
@@ -43,26 +43,13 @@ function Login() {
                         </div>
 
                         <div className="container">
-                            <a href="#" >Cadastrar novo usuário</a>
+                            <NavLink to="cadastrar" aria-label="Sou Novo!">Cadastrar Novo Usuário</NavLink>
                         </div>
-
                     </form>
                 </div>
             </div>
         </>
-    
-
-    return (
-        <>
-        <div>
-            {(logged == 'no')?
-            GO:
-            <App />
-            }
-        </div>
-            
-        </>
     )
 }
 
-export default Login
+export default Landing

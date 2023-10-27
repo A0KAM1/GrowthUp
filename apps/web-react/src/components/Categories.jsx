@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import "./Categories.css"
-import fetchData from "./FetchData.js";
-import edit_img from "./assets/edit.svg";
-import trash_img from "./assets/trash.svg";
+import fetchData from "../FetchData.js";
+import edit_img from "../../src/assets/edit.svg";
+import trash_img from "../../src/assets/trash.svg";
 
 function Categories() {
     const [categories, setCategories] = useState()

@@ -1,119 +1,69 @@
-import './App.css'
-import h from "./assets/table.svg"
-import c from "./assets/pie-chart.svg"
-import i from "./assets/home.svg"
-import u from "./assets/user.svg"
-import hs from "./assets/table-selected.svg"
-import cs from "./assets/pie-chart-selected.svg"
-import is from "./assets/home-selected.svg"
-import us from "./assets/user-selected.svg"
-import userIcon from "./assets/user-icon.svg"
+import { createBrowserRouter, RouterProvider} from 'react-router-dom';
 
-import Header from './Header'
-import Home from "./Home.jsx"
-import Categories from './Categories.jsx'
-import History from './History.jsx'
-import User from './User.jsx'
-import Login from './Login'
+import Landing from "./components/Landing.jsx";
+import SignUp from './components/SignUp.jsx';
+import Menu from './components/Menu.jsx';
+import History from './components/History.jsx';
+import Categories from './components/Categories.jsx';
+import Home from './components/Home.jsx';
+import User from './components/User.jsx';
 
-import { useState, useEffect } from 'react'
-import fetchData from './FetchData'
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Landing />,
+        errorElement: <h1>Erro! Rota não encontrada...</h1>
+    },
+    {
+        path: "/cadastrar",
+        element: <SignUp />,
+        errorElement: <h1>Erro! Rota não encontrada...</h1>
+    },
+    {
+        path: "/menu",
+        element: <Menu />,
+        errorElement: <h1>Erro! Rota não encontrada...</h1>,
+        children: [
+            {
+                path: "historico",
+                element: <History />,
+                errorElement: <h1>Erro! Rota não encontrada...</h1>
+            },
+            {
+                path: "categorias",
+                element: <Categories />,
+                errorElement: <h1>Erro! Rota não encontrada...</h1>
+            },
+            {
+                path: "inicio",
+                element: <Home />,
+                errorElement: <h1>Erro! Rota não encontrada...</h1>
+            },
+            {
+                path: "usuario",
+                element: <User />,
+                errorElement: <h1>Erro! Rota não encontrada...</h1>
+            }
+        ]
+    },
+    // {
+    //     path: "cadastrar-categoria",
+    //     element: <CategoriesSubmit />,
+    //     errorElement: <h1>Erro! Rota não encontrada...</h1>
+    // },
+    // {
+    //     path: "cadastrar-transacao",
+    //     element: <TransactionSubmit />,
+    //     errorElement: <h1>Erro! Rota não encontrada...</h1>
+    // }
+])
 
-
-function App() {
-
-    const [users, setUsers] = useState()
-
-    useEffect(() => {
-        const getUser = async () => {
-            setUsers(await fetchData("get", "/users/me"))
-        }
-        getUser()
-    }, [])
-
-    let content;
-    let btnState, btnState1, btnState2, btnState3;
-
-    const [page, setPage] = useState("home");
-
-    if (page == 'historico') {
-        content = <History />
-        btnState = "selected"
-    }
-    else if (page == 'categorias') {
-        content = <Categories />
-        btnState1 = "selected"
-    }
-    else if (page == 'home') {
-        content = <Home />
-        btnState2 = "selected"
-    }
-    else {
-        content = <User />
-        btnState3 = "selected"
-    }
-
-    return (
-        <>
-            <div className='App'>
-                {
-                    (page == 'user') ?
-                        <Header information={<>
-                            <div className="userData">
-                                <div>
-                                    <img src={userIcon} />
-                                </div>
-                                <h2>{users?.name}</h2>
-                            </div>
-                        </>} /> :
-                        <Header information={<>
-                            <div className="saldo">
-                                <h2>Saldo Disponível</h2>
-                                <h2>R$ {users?.account.balance}</h2>
-                            </div>
-                        </>} />
-                }
-                <div className='container'>{content}</div>
-                <footer className='nav'>
-                    <button className={btnState} onClick={() => setPage("historico")}>
-                        {
-                            (page == 'historico') ?
-                                <img src={hs} /> :
-                                <img src={h} />
-                        }
-                        <p>Histórico</p>
-                    </button>
-                    <button className={btnState1} onClick={() => setPage("categorias")}>
-                        {
-                            (page == 'categorias') ?
-                                <img src={cs} /> :
-                                <img src={c} />
-                        }
-                        <p>Categorias</p>
-                    </button>
-                    <button className={btnState2} onClick={() => setPage("home")}>
-                        {
-                            (page == 'home') ?
-                                <img src={is} /> :
-                                <img src={i} />
-                        }
-                        <p>Início</p>
-                    </button>
-                    <button className={btnState3} onClick={() => setPage("user")}>
-                        {
-                            (page == 'user') ?
-                                <img src={us} /> :
-                                <img src={u} />
-                        }
-                        <p>Perfil</p>
-                    </button>
-                </footer>
-            </div>
-
-        </>
+function App(){
+    return(
+        <div>
+            <RouterProvider router={router} />
+        </div>
     )
 }
-
-
 
 export default App

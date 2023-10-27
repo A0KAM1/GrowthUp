@@ -1,9 +1,10 @@
-import logo from "./assets/Logo.svg"
-import logo2 from "./assets/Logo2.svg"
-import logOut_img from "./assets/log-out.svg"
+import logo from "../../src/assets/Logo.svg"
+import logo2 from "../../src/assets/Logo2.svg"
+import logOut_img from "../../src/assets/log-out.svg"
+
 import "./Header.css"
 import { useState, useEffect } from 'react'
-import fetchData from "./FetchData"
+import fetchData from "../FetchData"
 
 function Header(props) {
 

@@ -1,7 +1,7 @@
 import "./User.css"
-import edit from "./assets/edit.svg"
+import edit from "../../src/assets/edit.svg"
 import { useState, useEffect } from "react"
-import fetchData from "./FetchData"
+import fetchData from "../FetchData"
 
 
 function User() {
