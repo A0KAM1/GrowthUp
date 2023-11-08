@@ -3,16 +3,11 @@ import logo2 from "../../src/assets/Logo2.svg"
 import logOut_img from "../../src/assets/log-out.svg"
 
 import "./Header.css"
-import { useState, useEffect } from 'react'
-import fetchData from "../FetchData"
 
 function Header(props) {
 
-
-
     function funcao() {
         window.location.reload(false)
-        console.log("clicado")
     }
 
     return (
@@ -34,6 +29,7 @@ function Header(props) {
             </div>
         </>
     )
+
 }
 
 export default Header

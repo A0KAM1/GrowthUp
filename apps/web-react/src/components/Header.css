@@ -1,11 +1,9 @@
 .Header{
     position: sticky;
     top: 0;
-    padding: 15px;
+    padding: 5%;
     height: 290px;
     border-radius: 0 0 8px 8px;
-    margin-bottom: 20px;
-
 }
 .Header h2{
     font-weight: 500;
@@ -14,17 +12,10 @@
 
 .top{
     display: flex;
-    align-items: center;
     justify-content: space-between;
 }
-.top button{
+.logout-btn{
     color: #D8D9DA;
-}
-
-
-.logo{
-    display: flex;
-    align-items: center;
 }
 
 

@@ -1,0 +1,73 @@
+.menu{
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    height: 80px;
+    width: 100%;
+}
+.link{
+    width: 25%;
+    min-width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    text-align: center;
+}
+
+.active{
+    background-color: #35A29F;
+    color: white;
+}
+.icon{
+    height: 40px;
+    width: 40px;
+    display: block;
+    margin: 0 auto;
+}
+
+.history{
+    background-image: url("../assets/table.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.active .history{
+    background-image: url("../assets/table-selected.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.categorie{
+    background-image: url("../assets/pie-chart.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.active .categorie{
+    background-image: url("../assets/pie-chart-selected.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.home{
+    background-image: url("../assets/home.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.active .home{
+    background-image: url("../assets/home-selected.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.user{
+    background-image: url("../assets/user.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.active .user{
+    background-image: url("../assets/user-selected.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}

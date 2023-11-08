@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+
+/*Default settings for all screens and personalized class to especific components*/
 :root{
     --fundo-escuro: #071952;
     --azul-claro: #279EFF;
@@ -18,6 +20,7 @@ body{
 }
 h1{
     font-size: 1.75rem;
+    margin-bottom: 35px;
 }
 h2{
     font-size: 1.5rem;
@@ -28,59 +31,63 @@ label, input{
 li{
     list-style-type: none;
     display: flex;
+    color: var(--fundo-escuro);
+    font-weight: bold;
 }
-
 button{
     background-color: transparent;
     border: none;
     text-align: center;
 }
-.form-group input{
+input{
     border: none;
     border-radius: 6px;
     height: 45px;
     width: 100%;
-    display: block;
     padding-left: 10px;
-}
-.form-group{
-    margin-bottom: 5%;
 }
 input:focus{
     outline: 0;
 }
-
-
-.bg-blue{
-    background-color: var(--fundo-escuro);
-    color: var(--letra-neutra);
-}
-
 .container{
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
 }
-
 .content{
-    margin-bottom: 80px;
+    width: 85%;
+    max-width: 85%;
+    margin-top: 7%;
+    margin-bottom: 90px;
+}
+.bg-blue{
+    background-color: var(--fundo-escuro);
+    color: var(--letra-neutra);
+}
+
+
+
+/*---------------Forms screens settings-----------------*/
+.form-screen{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.header{
+    margin-top: 5%;
+}
+.form{
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     width: 85%;
     max-width: 85%;
 }
-
-/*Default settings for all screens and personalized class to especific components*/
-
-
-.form-screen{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    width: 100vw;
-}
-.form-container{
-    width: 320px;
+.form-group{
+    margin-bottom: 35px;
 }
 .form-btn{
     background-color: var(--azul-claro);
@@ -90,34 +97,13 @@ input:focus{
     height: 45px;
     font-size: 1.125rem;
     width: 100%;
-    font-weight: 700;
+    font-weight: bold;
+    margin: 0 auto;
 }
-.form-btn:hover{
-    cursor: pointer;
-}
-.form-group{
-    margin-bottom: 5%;
-}
-
-/*Forms screens settings*/
-
-
-
-.back-btn{
-    position: absolute;
-    top: 2%;
-    left: 2%;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-}
-.back-btn p{
+.back-btn span{
     color: white;
     display: none;
 }
-
-/*Back button initial screens*/
-
 
 
 @media (min-width: 768px){
