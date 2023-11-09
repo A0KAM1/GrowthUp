@@ -1,3 +1,4 @@
+import { Form } from "react-router-dom"
 import logo from "../../src/assets/Logo.svg"
 import logo2 from "../../src/assets/Logo2.svg"
 import logOut_img from "../../src/assets/log-out.svg"
@@ -19,10 +20,12 @@ function Header(props) {
                         <img src={logo2} />
                     </div>
 
-                    <button type="button" className="logout-btn" onClick={funcao} >
-                        <img src={logOut_img} />
-                        <p>Sair</p>
-                    </button>
+                    <Form>
+                        <button type="submit" className="logout-btn" onClick={funcao} >
+                            <img src={logOut_img} />
+                            <span>Sair</span>
+                        </button>
+                    </Form>
                 </div>
 
                 <div>{props.information}</div>

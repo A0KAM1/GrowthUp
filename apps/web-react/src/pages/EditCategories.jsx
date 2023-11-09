@@ -1,5 +1,7 @@
 import { Form, useNavigate } from "react-router-dom"
 import arrow from '../assets/left.svg'
+import { useEffect } from "react";
+import fetchData from "../FetchData";
 
 
 const EditCategories = () => {
@@ -17,7 +19,7 @@ const EditCategories = () => {
                 <h1 style={{ marginTop: "5%" }}>Edição de Categoria</h1>
             </div>
 
-            <Form className="form">
+            <Form className="form" action={() => navigate(-1)}>
                 <div>
                     <div className="form-group">
                         <label>Titulo</label>

@@ -20,7 +20,7 @@ body{
 }
 h1{
     font-size: 1.75rem;
-    margin-bottom: 35px;
+    margin: 35px 0;
 }
 h2{
     font-size: 1.5rem;
@@ -92,17 +92,24 @@ input:focus{
 .form-btn{
     background-color: var(--azul-claro);
     color: white;
-    border: none;
     border-radius: 2px;
     height: 45px;
     font-size: 1.125rem;
     width: 100%;
     font-weight: bold;
     margin: 0 auto;
+    display: block;
 }
 .back-btn span{
     color: white;
     display: none;
+}
+.logo-container{
+    width: 65%;
+}
+.logo, .nome{
+    width: 100%;
+    margin: 0 auto;
 }
 
 

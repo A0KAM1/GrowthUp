@@ -15,8 +15,9 @@ function Categories() {
         getCategories()
     }, [])
 
-    const botao = () => {
-        console.log("clicado")
+    function exclude(id) {
+        const category = fetchData("delete", "/categories/" + id)
+        window.location.reload(false)
     }
 
     return (
@@ -30,20 +31,22 @@ function Categories() {
                     {
                         categories && categories.map(({ id, title, color }) => (
                             <li key={id} className="categories-list-item">
-                                <div className="categories-color">
+                                <span className="categories-color">
                                     <span className="color" style={{ backgroundColor: color }}></span>
-                                    {title}
-                                </div>
-                                <div>
-                                    <Link to="/editar-categoria">
-                                        <img src={pencil} />
-                                    </Link>
-                                    <Form action="deleteAction">
+                                    <span>{title}</span>
+                                </span>
+                                <span>
+                                    <Form style={{display: "inline"}} method="post">
                                         <button type="submit">
-                                            <img src={trash} />
+                                            <img src={pencil} />
                                         </button>
                                     </Form>
-                                </div>
+
+                                    <button type="button" onClick={() => exclude(id)}>
+                                        <img src={trash} />
+                                    </button>
+
+                                </span>
                             </li>
                         ))
                     }

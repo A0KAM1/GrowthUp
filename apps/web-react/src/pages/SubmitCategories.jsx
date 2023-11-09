@@ -11,7 +11,6 @@ function SubmitCategories() {
     const handleSubmit = async (event) => {
         const categorie = await fetchData('post', '/categories', {title, color})
         event.preventDefault()
-        redirect("/app/categorias")
     }
 
     const navigate = useNavigate();
@@ -28,7 +27,7 @@ function SubmitCategories() {
                     <h1 style={{ marginTop: "5%" }}>Cadastro de Categoria</h1>
                 </div>
 
-                <Form className="form" onSubmit={handleSubmit}>
+                <Form className="form" onSubmit={handleSubmit} action="/app/categorias">
                     <div>
                         <div className="form-group">
                             <label>Titulo</label>

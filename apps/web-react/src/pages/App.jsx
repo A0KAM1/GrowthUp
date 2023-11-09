@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom"
-import Menu from "./Menu"
-import Header from "./Header"
+import Menu from "../components/Menu"
+import Header from "../components/Header"
 import fetchData from "../FetchData"
 import { useState, useEffect } from "react"
 

@@ -1,17 +1,17 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import History from "./layouts/History.jsx";
-import Home from './layouts/Home.jsx';
-import Categories from './layouts/Categories.jsx';
-import User from './layouts/User.jsx'
+import History from "./components/History.jsx";
+import Home from './components/Home.jsx';
+import Categories from './components/Categories.jsx';
+import User from './components/User.jsx'
 
-import App from "./components/App.jsx";
-import Login from "./components/Login.jsx";
-import SignUp from './components/SignUp.jsx';
-import SubmitCategories from './components/SubmitCategories.jsx';
-import EditCategories from './components/EditCategories.jsx';
-import SubmitTransaction from './components/SubmitTransaction.jsx';
-import EditTransacion from './components/EditTransaction.jsx';
+import App from "./pages/App.jsx";
+import Login from "./pages/Login.jsx";
+import SignUp from './pages/SignUp.jsx';
+import SubmitCategories from './pages/SubmitCategories.jsx';
+import EditCategories from './pages/EditCategories.jsx';
+import SubmitTransaction from './pages/SubmitTransaction.jsx';
+import EditTransacion from './pages/EditTransaction.jsx';
 
 const router = createBrowserRouter([
     {

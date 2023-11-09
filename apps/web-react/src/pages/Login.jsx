@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import fetchData from '../FetchData'
-import { Form, Link } from 'react-router-dom'
+import { Form, Link, redirect } from 'react-router-dom'
 import './Login.css'
 import logo from '../assets/logo.svg'
 import nome from '../assets/logo2.svg'
@@ -11,17 +11,25 @@ function Login() {
     const [password, setPassword] = useState()
 
     const handleSubmit = async (event) => {
-
         const user = await fetchData('post', '/login', { email, password })
         localStorage.setItem("token", user.token)
-        console.log(user.name)
-        event.preventDefault()
     }
 
     return (
         <>
             <div className="form-screen bg-blue container">
                 <div className="content">
+
+                    <div className='container'>
+                        <div className='logo-container'>
+                            <div>
+                                <img src={logo} className='logo'/>
+                            </div>
+                            <div>
+                                <img src={nome} className='nome'/>
+                            </div>
+                        </div>
+                    </div>
 
                     <h1>Entrar</h1>
 
@@ -38,9 +46,8 @@ function Login() {
 
                         <button className="form-btn" type="submit" >Entrar</button>
 
-                        <div className='container'>
-                            <Link className="signUp-link" to="cadastrar" aria-label="Novo Usuário">Cadastrar Novo Usuário</Link>
-                        </div>
+                        <Link className="signUp-link" to="cadastrar" aria-label="Novo Usuário">Cadastrar Novo Usuário</Link>
+
                     </Form>
                 </div >
             </div >
