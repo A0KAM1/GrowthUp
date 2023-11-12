@@ -1,9 +1,0 @@
-label, a{
-    font-size: 1.125rem;
-}
-
-@media (min-width: 768px){
-    label, a{
-        font-size: 1.5rem;
-    }
-}
