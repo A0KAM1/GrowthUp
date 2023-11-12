@@ -1,4 +1,4 @@
-import { Form, Link } from "react-router-dom"
+import { Form, Link, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import "./Categories.css"
 import fetchData from "../FetchData"
@@ -6,7 +6,9 @@ import pencil from '../assets/edit.svg'
 import trash from '../assets/trash.svg'
 
 function Categories() {
+
     const [categories, setCategories] = useState()
+    const navigate = useNavigate()
 
     useEffect(() => {
         const getCategories = async () => {
@@ -16,7 +18,7 @@ function Categories() {
     }, [])
 
     function exclude(id) {
-        const category = fetchData("delete", "/categories/" + id)
+        fetchData("delete", "/categories/" + id)
         window.location.reload(false)
     }
 
@@ -36,16 +38,13 @@ function Categories() {
                                     <span>{title}</span>
                                 </span>
                                 <span>
-                                    <Form style={{display: "inline"}} method="post">
-                                        <button type="submit">
-                                            <img src={pencil} />
-                                        </button>
-                                    </Form>
+                                    <button type="button" onClick={() => {navigate("/editar-categoria", {replace: true, state:{id}})}}>
+                                        <img src={pencil} />
+                                    </button>
 
                                     <button type="button" onClick={() => exclude(id)}>
                                         <img src={trash} />
                                     </button>
-
                                 </span>
                             </li>
                         ))

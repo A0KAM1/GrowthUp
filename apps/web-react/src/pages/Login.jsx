@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import fetchData from '../FetchData'
-import { Form, Link, redirect } from 'react-router-dom'
+import { Form, Link, redirect, useNavigate } from 'react-router-dom'
 import './Login.css'
 import logo from '../assets/logo.svg'
 import nome from '../assets/logo2.svg'
@@ -10,9 +10,12 @@ function Login() {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
 
+    const navigate = useNavigate()
+
     const handleSubmit = async (event) => {
         const user = await fetchData('post', '/login', { email, password })
         localStorage.setItem("token", user.token)
+        navigate('/app', {replace: true})
     }
 
     return (

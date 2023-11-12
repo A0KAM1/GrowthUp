@@ -4,16 +4,15 @@ import { useState } from "react";
 import fetchData from "../FetchData";
 
 function SubmitCategories() {
-
+    
+    const navigate = useNavigate();
     const [title, setTitle] = useState()
     const [color, setColor] = useState()
     
-    const handleSubmit = async (event) => {
-        const categorie = await fetchData('post', '/categories', {title, color})
-        event.preventDefault()
+    const handleSubmit = async () => {
+        await fetchData('post', '/categories', {title, color})
     }
 
-    const navigate = useNavigate();
 
     return (
         <>
