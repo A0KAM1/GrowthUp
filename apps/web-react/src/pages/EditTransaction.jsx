@@ -20,16 +20,19 @@ function EditTransacion() {
                 <Form className="form">
                     <div>
                         <div className="form-group">
-                            <label>Titulo</label>
-                            <input type="text" />
+                            <label>Titulo
+                                <input type="text" />
+                            </label>
                         </div>
                         <div className="form-group">
-                            <label>Categoria</label>
-                            <input type="text" />
+                            <label>Categoria
+                                <input type="text" />
+                            </label>
                         </div>
                         <div className="form-group">
-                            <label>Valor</label>
-                            <input type="number" />
+                            <label>Valor
+                                <input type="number" />
+                            </label>
                         </div>
                     </div>
 

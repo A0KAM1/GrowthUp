@@ -24,7 +24,6 @@ function EditCategories() {
         const formData = new FormData(form)
 
         const formJson = Object.fromEntries(formData.entries())
-        console.log(formJson)
 
         const title = formJson.name
         const color = formJson.hex
@@ -37,7 +36,7 @@ function EditCategories() {
     return (
         <div className="form-screen bg-blue">
 
-            <div className="content header">
+            <div className="content">
                 <button className="back-btn" onClick={() => navigate("/app/categorias")}>
                     <img src={arrow} />
                     <span>Voltar</span>
@@ -52,7 +51,6 @@ function EditCategories() {
                             <input type="text" defaultValue={categorie?.title || ''} name="name" />
                         </label>
                     </div>
-
                     <div className="form-group">
                         <label>Cor
                             <input type="text" defaultValue={categorie?.color || ''} name="hex" />

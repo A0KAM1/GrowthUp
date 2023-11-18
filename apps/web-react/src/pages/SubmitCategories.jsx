@@ -4,13 +4,13 @@ import { useState } from "react";
 import fetchData from "../FetchData";
 
 function SubmitCategories() {
-    
+
     const navigate = useNavigate();
     const [title, setTitle] = useState()
     const [color, setColor] = useState()
-    
+
     const handleSubmit = async () => {
-        await fetchData('post', '/categories', {title, color})
+        await fetchData('post', '/categories', { title, color })
     }
 
 
@@ -19,22 +19,24 @@ function SubmitCategories() {
             <div className="form-screen bg-blue">
 
                 <div className="content header">
-                    <button className="back-btn" onClick={() => navigate(-1)}>
+                    <button className="back-btn" onClick={() => navigate("/app/categorias")}>
                         <img src={arrow} />
                         <span>Voltar</span>
                     </button>
                     <h1 style={{ marginTop: "5%" }}>Cadastro de Categoria</h1>
                 </div>
 
-                <Form className="form" onSubmit={handleSubmit} action="/app/categorias">
+                <Form className="form" onSubmit={handleSubmit} action={() => navigate("/app/categorias", {replace: true})}>
                     <div>
                         <div className="form-group">
-                            <label>Titulo</label>
-                            <input type="text" onChange={(e) => setTitle(e.target.value)}/>
+                            <label>Titulo
+                                <input type="text" onChange={(e) => setTitle(e.target.value)} />
+                            </label>
                         </div>
                         <div className="form-group">
-                            <label>Cor</label>
-                            <input type="text" onChange={(e) => setColor(e.target.value)}/>
+                            <label>Cor
+                                <input type="text" onChange={(e) => setColor(e.target.value)} />
+                            </label>
                         </div>
                     </div>
 

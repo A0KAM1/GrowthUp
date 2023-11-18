@@ -1,9 +1,6 @@
 import { Form, useNavigate } from "react-router-dom"
 import logo from "../../src/assets/Logo.svg"
 import logo2 from "../../src/assets/Logo2.svg"
-import logOut_img from "../../src/assets/log-out.svg"
-
-import "./Header.css"
 
 function Header(props) {
 
@@ -17,12 +14,11 @@ function Header(props) {
                         <img src={logo} />
                         <img src={logo2} />
                     </div>
-                    
+
                     <button type="button" className="logout-btn" onClick={() => {
-                        localStorage.removeItem("token")
                         navigate('/', { replace: true })
                     }} >
-                        <img src={logOut_img} />
+                        <ion-icon name="log-out-outline"></ion-icon>
                         <span>Sair</span>
                     </button>
 

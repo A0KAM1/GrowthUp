@@ -59,6 +59,10 @@ const router = createBrowserRouter([
     {
         path: "editar-transacao",
         element: <EditTransacion />
+    },
+    {
+        path: "*",
+        element: <Error />
     }
 ])
 

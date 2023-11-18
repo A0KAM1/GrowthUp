@@ -1,7 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import fetchData from '../FetchData'
-import { Form, Link, redirect, useNavigate } from 'react-router-dom'
-import './Login.css'
+import { Form, Link, useNavigate } from 'react-router-dom'
 import logo from '../assets/logo.svg'
 import nome from '../assets/logo2.svg'
 
@@ -9,13 +8,16 @@ function Login() {
 
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-
     const navigate = useNavigate()
+
+    useEffect(() => {
+        localStorage.setItem("token", "")
+    }, [])
 
     const handleSubmit = async (event) => {
         const user = await fetchData('post', '/login', { email, password })
         localStorage.setItem("token", user.token)
-        navigate('/app', {replace: true})
+        navigate('/app', { replace: true })
     }
 
     return (
@@ -25,12 +27,8 @@ function Login() {
 
                     <div className='container'>
                         <div className='logo-container'>
-                            <div>
-                                <img src={logo} className='logo'/>
-                            </div>
-                            <div>
-                                <img src={nome} className='nome'/>
-                            </div>
+                            <img src={logo} className='logo' />
+                            <img src={nome} className='nome' />
                         </div>
                     </div>
 
@@ -38,12 +36,14 @@ function Login() {
 
                     <Form onSubmit={handleSubmit}>
                         <div className="form-group">
-                            <label>Email</label>
-                            <input type="email" onChange={(e) => setEmail(e.target.value)} required />
+                            <label>Email
+                                <input type="email" onChange={(e) => setEmail(e.target.value)} required />
+                            </label>
                         </div>
                         <div className="form-group">
-                            <label>Senha</label>
-                            <input type="password" onChange={(e) => setPassword(e.target.value)} required />
+                            <label>Senha
+                                <input type="password" onChange={(e) => setPassword(e.target.value)} required />
+                            </label>
                             <a href="#" className='reset' >Esqueci a senha</a>
                         </div>
 

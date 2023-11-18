@@ -1,9 +1,7 @@
-import { Form, Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
-import "./Categories.css"
 import fetchData from "../FetchData"
-import pencil from '../assets/edit.svg'
-import trash from '../assets/trash.svg'
+
 
 function Categories() {
 
@@ -27,23 +25,22 @@ function Categories() {
             <div className="content">
                 <input className="search-input" type="text" />
 
-                <Link className="cat-add-btn" to="/adicionar-categoria">+ Criar Nova Categoria</Link>
+                <Link className="add-btn" to="/adicionar-categoria">+ Criar Nova Categoria</Link>
 
                 <ul>
                     {
                         categories && categories.map(({ id, title, color }) => (
-                            <li key={id} className="categories-list-item">
-                                <span className="categories-color">
+                            <li key={id} className="list-item">
+                                <span className="list-wrapper">
                                     <span className="color" style={{ backgroundColor: color }}></span>
                                     <span>{title}</span>
                                 </span>
-                                <span>
-                                    <button type="button" onClick={() => {navigate("/editar-categoria", {replace: true, state:{id}})}}>
-                                        <img src={pencil} />
+                                <span className="list-wrapper">
+                                    <button type="button" onClick={() => { navigate("/editar-categoria", { replace: true, state: { id } }) }}>
+                                        <ion-icon name="pencil"></ion-icon>
                                     </button>
-
                                     <button type="button" onClick={() => exclude(id)}>
-                                        <img src={trash} />
+                                        <ion-icon name="trash-outline"></ion-icon>
                                     </button>
                                 </span>
                             </li>

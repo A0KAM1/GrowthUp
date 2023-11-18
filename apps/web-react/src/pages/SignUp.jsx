@@ -24,22 +24,25 @@ function SignUp() {
                         <img src={arrow} />
                         <span>Voltar</span>
                     </Link>
-                    <h1 style={{marginTop: "5%"}}>Cadastro de Usuário</h1>
+                    <h1 style={{ marginTop: "5%" }}>Cadastro de Usuário</h1>
                 </div>
 
                 <Form className="form" onSubmit={handleSubmit}>
                     <div>
                         <div className="form-group">
-                            <label>Nome Completo</label>
-                            <input type="text" onChange={(e) => setName(e.target.value)} required />
+                            <label>Nome Completo
+                                <input type="text" onChange={(e) => setName(e.target.value)} required />
+                            </label>
                         </div>
                         <div className="form-group">
-                            <label>Email</label>
-                            <input type="email" onChange={(e) => setEmail(e.target.value)} required />
+                            <label>Email
+                                <input type="email" onChange={(e) => setEmail(e.target.value)} required />
+                            </label>
                         </div>
                         <div className="form-group">
-                            <label>Senha</label>
-                            <input type="password" id="password" onChange={(e) => setPassword(e.target.value)} required />
+                            <label>Senha
+                                <input type="password" id="password" onChange={(e) => setPassword(e.target.value)} required />
+                            </label>
                         </div>
                     </div>
 
