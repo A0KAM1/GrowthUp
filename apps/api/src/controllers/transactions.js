@@ -557,6 +557,32 @@ route.put('/:id', authenticate, async (req, res) => {
 
         const updatedTransaction = await prisma.transaction.update(query)
 
+        const amountDifference = parseFloat(updatedTransaction.amount) - parseFloat(transaction.amount)
+
+        const oldBalance = await prisma.account.findUnique({
+            where: {
+                userId: req.userId
+            },
+            select: {
+                balance: true
+            }
+        })
+
+        await prisma.account.update({
+            where: {
+                userId: req.userId
+            },
+            data: {
+                balance: updatedTransaction.type === transaction.type ?
+                    updatedTransaction.type === 'DEPOSIT' ?
+                        parseFloat(oldBalance.balance) + amountDifference
+                        : parseFloat(oldBalance.balance) - amountDifference
+                    : updatedTransaction.type === 'DEPOSIT' ?
+                        parseFloat(oldBalance.balance) + (parseFloat(updatedTransaction.amount) * 2)
+                        : parseFloat(oldBalance.balance) - (parseFloat(updatedTransaction.amount) * 2)
+            }
+        })
+
         res.json({
             ...updatedTransaction,
             amount: parseFloat(updatedTransaction.amount),
@@ -628,7 +654,9 @@ route.delete('/:id', authenticate, async (req, res) => {
                     select: {
                         userId: true
                     }
-                }
+                },
+                type: true,
+                amount: true,
             }
         })
 
@@ -640,7 +668,27 @@ route.delete('/:id', authenticate, async (req, res) => {
             return res.status(401).json({ message: 'Unauthorized' })
         }
 
-        prisma.transaction.delete({
+        const Updatebalance = await prisma.account.findUnique({
+            where: {
+                userId: req.userId
+            },
+            select: {
+                balance: true
+            }
+        })
+
+        await prisma.account.update({
+            where: {
+                userId: req.userId
+            },
+            data: {
+                balance: transaction.type === 'DEPOSIT'
+                    ? parseFloat(Updatebalance.balance) - parseFloat(transaction.amount)
+                    : parseFloat(Updatebalance.balance) + parseFloat(transaction.amount)
+            }
+        })
+
+        await prisma.transaction.delete({
             where: {
                 id: parseInt(id)
             }

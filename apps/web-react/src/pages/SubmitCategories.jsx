@@ -1,5 +1,4 @@
 import { Form, redirect, useNavigate } from "react-router-dom"
-import arrow from '../assets/left.svg'
 import { useState } from "react";
 import fetchData from "../FetchData";
 
@@ -11,6 +10,7 @@ function SubmitCategories() {
 
     const handleSubmit = async () => {
         await fetchData('post', '/categories', { title, color })
+        navigate("/app/categorias", { replace: true })
     }
 
 
@@ -19,14 +19,14 @@ function SubmitCategories() {
             <div className="form-screen bg-blue">
 
                 <div className="content header">
-                    <button className="back-btn" onClick={() => navigate("/app/categorias")}>
-                        <img src={arrow} />
+                    <button className="back-btn" onClick={() => navigate("/app/categorias", { replace: true })}>
+                        <ion-icon name="chevron-back-outline"></ion-icon>
                         <span>Voltar</span>
                     </button>
                     <h1 style={{ marginTop: "5%" }}>Cadastro de Categoria</h1>
                 </div>
 
-                <Form className="form" onSubmit={handleSubmit} action={() => navigate("/app/categorias", {replace: true})}>
+                <Form className="form" onSubmit={handleSubmit} >
                     <div>
                         <div className="form-group">
                             <label>Titulo

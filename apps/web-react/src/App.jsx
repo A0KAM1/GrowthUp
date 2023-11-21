@@ -5,13 +5,14 @@ import Home from './components/Home.jsx';
 import Categories from './components/Categories.jsx';
 import User from './components/User.jsx'
 
-import App from "./pages/App.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
 import Login from "./pages/Login.jsx";
 import SignUp from './pages/SignUp.jsx';
 import SubmitCategories from './pages/SubmitCategories.jsx';
 import EditCategories from './pages/EditCategories.jsx';
 import SubmitTransaction from './pages/SubmitTransaction.jsx';
 import EditTransacion from './pages/EditTransaction.jsx';
+import Error from './pages/Error.jsx';
 
 const router = createBrowserRouter([
     {
@@ -24,7 +25,8 @@ const router = createBrowserRouter([
     },
     {
         path: "app",
-        element: <App />,
+        element: <Dashboard />,
+        errorElement: <Error />,
         children: [
             {
                 index: true,
@@ -41,6 +43,10 @@ const router = createBrowserRouter([
             {
                 path: "perfil",
                 element: <User />
+            },
+            {
+                path: '*',
+                element: <Error />
             }
         ]
     },
@@ -60,16 +66,12 @@ const router = createBrowserRouter([
         path: "editar-transacao",
         element: <EditTransacion />
     },
-    {
-        path: "*",
-        element: <Error />
-    }
 ])
 
-function Paths() {
+function App() {
     return (
         <RouterProvider router={router} />
     )
 }
 
-export default Paths
+export default App

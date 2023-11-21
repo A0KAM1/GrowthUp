@@ -1,4 +1,3 @@
-import pencil from "../../src/assets/edit.svg"
 import { useState, useEffect } from "react"
 import fetchData from "../FetchData"
 import { Form } from "react-router-dom"
@@ -24,7 +23,7 @@ function User() {
         const name = formJson.name
         const email = formJson.email
 
-        await fetchData("put", "/users/me", { name, email })
+        await fetchData("put", "/users/m3", { name, email })
 
         setChange("no")
         

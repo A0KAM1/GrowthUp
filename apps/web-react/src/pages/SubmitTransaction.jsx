@@ -1,5 +1,4 @@
 import { Form, useNavigate } from "react-router-dom"
-import arrow from '../assets/left.svg'
 import { useEffect, useState } from "react";
 import fetchData from "../FetchData";
 
@@ -29,7 +28,7 @@ function SubmitTransaction() {
         const category = formJson.category
 
         await fetchData("post", "/transactions", { title, amount, type, category })
-        
+
         navigate("/app/historico", { replace: true })
     }
 
@@ -38,14 +37,14 @@ function SubmitTransaction() {
             <div className="form-screen bg-blue">
 
                 <div className="content header">
-                    <button className="back-btn" onClick={() => navigate(-1)}>
-                        <img src={arrow} />
+                    <button className="back-btn" onClick={() => navigate("/app/historico", { replace: true })}>
+                        <ion-icon name="chevron-back-outline"></ion-icon>
                         <span>Voltar</span>
                     </button>
                     <h1 style={{ marginTop: "5%" }}>Cadastro de Transação</h1>
                 </div>
 
-                <Form className="form" onSubmit={handleSubmit} action="/app/historico">
+                <Form className="form" onSubmit={handleSubmit}>
                     <div>
                         <div className="form-group">
                             <label>Titulo
@@ -55,33 +54,37 @@ function SubmitTransaction() {
 
                         <div className="form-group">
                             <label>Valor
-                                <input type="number" onChange={(e) => setAmount(e.target.value)} />
+                                <input type="float" onChange={(e) => setAmount(e.target.value)} />
                             </label>
                         </div>
 
                         <div className="form-group">
-                            <label>
-                                Tipo
-                                <select name="type">
-                                    <option value="WITHDRAW">Saída</option>
-                                    <option value="DEPOSIT">Entrada</option>
-                                </select>
-                            </label>
+                            <div id="category-select">
+                                <label>
+                                    Tipo
+                                    <select name="type">
+                                        <option value="WITHDRAW">Saída</option>
+                                        <option value="DEPOSIT">Entrada</option>
+                                    </select>
+                                </label>
+                            </div>
                         </div>
 
                         <div className="form-group">
                             <label>
                                 Categoria
-                                <select name="category">
-                                    {
-                                        categories && categories.map(({ id, title, color }) => (
-                                            <option value={id}>
-                                                {/* <span className="color" style={{ backgroundColor: color }}></span> */}
-                                                {title}
-                                            </option>
-                                        ))
-                                    }
-                                </select>
+                                <div className="select">
+
+                                    <select name="category">
+                                        {
+                                            categories && categories.map(({ id, title, color }) => (
+                                                <option value={id} key={id}>
+                                                    {title}
+                                                </option>
+                                            ))
+                                        }
+                                    </select>
+                                </div>
                             </label>
                         </div>
                     </div>

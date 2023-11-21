@@ -4,7 +4,7 @@ import Header from "../components/Header"
 import fetchData from "../FetchData"
 import { useState, useEffect } from "react"
 
-function App() {
+function Dashboard() {
     const [users, setUsers] = useState()
 
     useEffect(() => {
@@ -30,4 +30,4 @@ function App() {
     )
 }
 
-export default App
+export default Dashboard

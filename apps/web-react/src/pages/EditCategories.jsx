@@ -1,14 +1,12 @@
 import { Form, useLocation, useNavigate } from "react-router-dom"
-import arrow from '../assets/left.svg'
 import { useEffect, useState } from "react";
 import fetchData from "../FetchData";
 
 
 function EditCategories() {
-
     const location = useLocation()
     const navigate = useNavigate()
-    const [categorie, setCategorie] = useState()
+    const [category, setCategorie] = useState()
 
     useEffect(() => {
         const getCategorie = async () => {
@@ -37,8 +35,8 @@ function EditCategories() {
         <div className="form-screen bg-blue">
 
             <div className="content">
-                <button className="back-btn" onClick={() => navigate("/app/categorias")}>
-                    <img src={arrow} />
+                <button className="back-btn" onClick={() => navigate("/app/categorias", { replace: true })}>
+                    <ion-icon name="chevron-back-outline"></ion-icon>
                     <span>Voltar</span>
                 </button>
                 <h1 style={{ marginTop: "5%" }}>Edição de Categoria</h1>
@@ -48,12 +46,12 @@ function EditCategories() {
                 <div>
                     <div className="form-group">
                         <label>Titulo
-                            <input type="text" defaultValue={categorie?.title || ''} name="name" />
+                            <input type="text" defaultValue={category?.title || ''} name="name" />
                         </label>
                     </div>
                     <div className="form-group">
                         <label>Cor
-                            <input type="text" defaultValue={categorie?.color || ''} name="hex" />
+                            <input type="text" defaultValue={category?.color || ''} name="hex" />
                         </label>
                     </div>
                 </div>

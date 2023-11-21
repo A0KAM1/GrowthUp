@@ -4,22 +4,60 @@ import fetchData from "../FetchData"
 
 function History() {
     const navigate = useNavigate()
+    const [loading, setLoading] = useState()
     const [transactions, setTransactions] = useState()
-    const [categoria, setCategoria] = useState()
+    const [categories, setCategories] = useState()
 
     useEffect(() => {
-        const getTransactions = async () => {
-            setTransactions(await fetchData("get", "/transactions"))
+        const getData = async () => {
+            try{
+
+                const [transactionsData, categoriesData] = await Promise.all([
+                    fetchData("get", "/transactions"),
+                    fetchData("get", "/categories")
+                ])
+                
+                setTransactions(transactionsData)
+                setCategories(categoriesData)
+                setLoading(false)
+            } catch(error){
+                console.error("Erro ao carregar elemento: ", error)
+                setLoading(true)
+            }
         }
-        getTransactions()
+
+        getData()
     }, [])
 
+    const transformData = (data, type) => {
+        if(!data || !type) return []
 
+        return data.map(data => {
+            const categoryTitle = type.find(type => type.id === data.category)
+            return {
+                id: data.id,
+                title: data.title,
+                amount: data.amount,
+                type: data.type,
+                category: {
+                    id: categoryTitle.id,
+                    title: categoryTitle.title,
+                    color: categoryTitle.color
+                }
+            }
+        })
+    }
 
-    // function exclude(id) {
-    //     fetchData("delete", "/categories/" + id)
-    //     window.location.reload(false)
-    // }
+    const data = transformData(transactions, categories)
+
+    function exclude(id) {
+        fetchData("delete", "/transactions/" + id)
+        window.location.reload(false)
+    }
+
+    if(loading){
+        return <p>Carregando...</p>
+    }
 
     return (
         <div className="content">
@@ -29,7 +67,7 @@ function History() {
 
             <ul>
                 {
-                    transactions && transactions.map(({ id, title, amount, type, category }) => (
+                    data && data.map(({ id, title, amount, type, category }) => (
                         <li key={id} >
                             <details >
                                 <summary className="list-item">
@@ -50,12 +88,12 @@ function History() {
                                         }
                                     </div>
                                     <div>
-                                        {category}
+                                        {category.title}
                                     </div>
                                 </div>
 
                                 <div className="stretch">
-                                    <button type="button">
+                                    <button type="button" onClick={() => { navigate("/editar-transacao", { replace: true, state: { id } }) }}>
                                         <ion-icon name="pencil"></ion-icon>
                                         <span>Editar</span>
                                     </button>

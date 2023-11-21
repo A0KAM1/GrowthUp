@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { Form, Link } from "react-router-dom"
 import fetchData from "../FetchData"
-import arrow from '../assets/left.svg'
 
 function SignUp() {
     const [name, setName] = useState()
@@ -21,7 +20,7 @@ function SignUp() {
 
                 <div className="content header">
                     <Link className="back-btn" to="/">
-                        <img src={arrow} />
+                        <ion-icon name="chevron-back-outline"></ion-icon>
                         <span>Voltar</span>
                     </Link>
                     <h1 style={{ marginTop: "5%" }}>Cadastro de Usuário</h1>
