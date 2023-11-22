@@ -63,7 +63,7 @@ function History() {
         <div className="content">
             <input className="search-input" type="text" />
 
-            <Link className="add-btn" to="/adicionar-transacao">+ Criar Nova Categoria</Link>
+            <Link className="add-btn" to="/adicionar-transacao">+ Criar Nova Transação</Link>
 
             <ul>
                 {
