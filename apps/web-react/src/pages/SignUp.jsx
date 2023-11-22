@@ -1,8 +1,9 @@
 import { useState } from "react"
-import { Form, Link } from "react-router-dom"
+import { Form, Link, useNavigate } from "react-router-dom"
 import fetchData from "../FetchData"
 
 function SignUp() {
+    const navigate = useNavigate()
     const [name, setName] = useState()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
@@ -12,6 +13,8 @@ function SignUp() {
         const user = await fetchData('post', '/register', { name, email, password })
         localStorage.setItem("token", user.token)
         event.preventDefault()
+
+        navigate("/app/", {replace: true})
     }
 
     return (
@@ -19,10 +22,10 @@ function SignUp() {
             <div className="bg-blue form-screen">
 
                 <div className="content header">
-                    <Link className="back-btn" to="/">
+                    <button className="back-btn" onClick={() => navigate("/", {replace: true})}>
                         <ion-icon name="chevron-back-outline"></ion-icon>
                         <span>Voltar</span>
-                    </Link>
+                    </button>
                     <h1 style={{ marginTop: "5%" }}>Cadastro de Usuário</h1>
                 </div>
 
