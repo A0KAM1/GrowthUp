@@ -8,7 +8,7 @@ Este repositório contém o projeto da disciplina de Engenharia de Software 3 do
 - [Mysql](https://www.mysql.com/) para o banco de dados
 - [Prisma](https://www.prisma.io/) para o ORM
 - [Yarn](https://yarnpkg.com/) para o gerenciamento de pacotes
-- ~~[não definido]() para o frontend~~
+- [Readc](http://react.dev) para o frontend
 
 ## Como executar
 
