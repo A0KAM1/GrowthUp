@@ -16,7 +16,7 @@ Primeiramente, é necessário clonar o repositório:
 
 ```bash
 # Clonar o repositório
-git clone https://github.com/Psykka/ES3.git
+git clone https://github.com/A0KAM1/GrowthUp.git
 ```
 
 Esse projeto utiliza o `Yarn` como gerenciador de pacotes, portanto é necessário instalar o [Node.js](https://nodejs.org/) para poder utilizar o Yarn. Após instalar o Node.js, utilize o comando abaixo para instalar o Yarn:
